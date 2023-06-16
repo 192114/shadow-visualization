@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/eslintrc",
+  "root": true,
+  "env": { "browser": true, "es2020": true },
+  "extends": ["@config/eslint-config-react"]
+}
