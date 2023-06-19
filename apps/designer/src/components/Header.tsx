@@ -14,6 +14,10 @@ export default function Header({ children }: HeaderProps) {
   const { isDark, toggleDark } = useThemeStore()
   return (
     <header className={styles.header}>
+      <div className={styles.logo}>
+        <img src="/favicon-32x32.png" alt="" />
+      </div>
+
       <div className={styles.content}>{children}</div>
 
       <Switch
@@ -22,16 +26,25 @@ export default function Header({ children }: HeaderProps) {
             style={{
               display: 'flex',
               alignItems: 'center',
-              height: '100%',
-              lineHeight: 0,
+              height: 22,
             }}
           >
             <Icons.sun size={14} color="#FAFA33" />
           </span>
         }
-        unCheckedChildren={<Icons.moon size={14} />}
-        // checked={!isDark}
-        // onChange={() => toggleDark()}
+        unCheckedChildren={
+          <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              height: 22,
+            }}
+          >
+            <Icons.moon size={14} />
+          </span>
+        }
+        checked={!isDark}
+        onChange={() => toggleDark()}
       />
     </header>
   )
