@@ -1,7 +1,9 @@
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
+  GripVerticalIcon,
   MoonIcon,
+  MoveDiagonal2Icon,
   SunIcon,
 } from 'lucide-react'
 
@@ -10,6 +12,8 @@ const Icons = {
   moon: MoonIcon,
   leftArrow: ChevronLeftIcon,
   rightArrow: ChevronRightIcon,
+  handle: GripVerticalIcon,
+  resize: MoveDiagonal2Icon,
 }
 
 export default Icons

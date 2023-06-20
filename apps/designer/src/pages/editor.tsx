@@ -1,20 +1,12 @@
-import { useState } from 'react'
 import { DndContext } from '@dnd-kit/core'
-import type { Coordinates } from '@dnd-kit/utilities'
 
 import DragItem from '~/components/DragItem'
 import Header from '~/components/Header'
 import RightConfig from '~/components/RightConfig'
-
-const defaultCoordinates = {
-  x: 0,
-  y: 0,
-  deltaX: 0,
-  deltaY: 0,
-}
+import { useCardListStore } from '~/store'
 
 export default function Editor() {
-  const [{ x, y }, setCoordinates] = useState<Coordinates>(defaultCoordinates)
+  const { cardList, changeCoordinates } = useCardListStore()
 
   return (
     <div className="full-screen">
@@ -24,18 +16,24 @@ export default function Editor() {
         {/* left tools */}
         <div className="template-list">1</div>
         {/* middle view */}
-        <div className="drag-view">
+        <div className="drag-view" style={{ position: 'relative' }}>
           <DndContext
-            onDragEnd={({ delta }) => {
-              setCoordinates(({ x, y }) => {
-                return {
-                  x: x + delta.x,
-                  y: y + delta.y,
-                }
-              })
+            onDragEnd={({ delta, active }) => {
+              changeCoordinates(`${active.id}`, delta.x, delta.y)
             }}
           >
-            <DragItem id="kkk" top={y} left={x} />
+            {cardList.map((cardItem) => {
+              return (
+                <DragItem
+                  key={cardItem.id}
+                  id={cardItem.id}
+                  top={cardItem.y}
+                  left={cardItem.x}
+                  height={cardItem.height}
+                  width={cardItem.width}
+                />
+              )
+            })}
           </DndContext>
         </div>
         {/* right config */}

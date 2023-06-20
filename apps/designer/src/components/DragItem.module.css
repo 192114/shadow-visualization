@@ -1,0 +1,35 @@
+.dragHandle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3f3f3f;
+  cursor: grab;
+  mix-blend-mode: difference;
+  border-radius: 6px;
+  z-index: 1;
+}
+
+.resizeHandle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3f3f3f;
+  mix-blend-mode: difference;
+  cursor: se-resize;
+  z-index: 1;
+}
+
+.dragHandle:hover, .resizeHandle:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}

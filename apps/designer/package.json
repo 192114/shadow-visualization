@@ -16,8 +16,10 @@
     "dayjs": "^1.11.8",
     "immer": "^10.0.2",
     "lucide-react": "^0.244.0",
+    "nanoid": "^4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-resizable": "^3.0.5",
     "react-router-dom": "^6.13.0",
     "zustand": "^4.3.8"
   },
@@ -26,6 +28,7 @@
     "@config/tsconfig": "workspace:*",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
+    "@types/react-resizable": "^3.0.4",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "eslint": "^8.38.0",
     "typescript": "^5.0.2",
