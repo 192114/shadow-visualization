@@ -31,6 +31,7 @@ export default function Editor() {
                   left={cardItem.x}
                   height={cardItem.height}
                   width={cardItem.width}
+                  selected={false}
                 />
               )
             })}

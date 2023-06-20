@@ -1,3 +1,34 @@
+.container {
+  position: absolute;
+  background-color: chocolate;
+}
+
+.container.selected::before {
+  position: absolute;
+  background-color: #fa541c;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  content: attr(data-width);
+  color: #fff;
+  border-radius: 6px;
+  z-index: 1;
+  padding: 0 4px;
+}
+
+.container.selected::after {
+  position: absolute;
+  background-color: #fa541c;
+  top: 50%;
+  right: 0;
+  transform: translateX(50%) translateY(-50%);
+  content: attr(data-height);
+  color: #fff;
+  border-radius: 6px;
+  z-index: 1;
+  padding: 0 4px;
+}
+
 .dragHandle {
   position: absolute;
   top: 0;
@@ -11,7 +42,6 @@
   cursor: grab;
   mix-blend-mode: difference;
   border-radius: 6px;
-  z-index: 1;
 }
 
 .resizeHandle {
@@ -27,9 +57,9 @@
   color: #3f3f3f;
   mix-blend-mode: difference;
   cursor: se-resize;
-  z-index: 1;
 }
 
-.dragHandle:hover, .resizeHandle:hover {
+.dragHandle:hover,
+.resizeHandle:hover {
   background-color: rgba(255, 255, 255, 0.6);
 }
