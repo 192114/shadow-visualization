@@ -30,3 +30,23 @@ export function restrictToBoundingRect(
 
   return value
 }
+
+// https://github.com/clauderic/dnd-kit/blob/master/packages/modifiers/src/restrictToParentElement.ts
+// 自定义modifier
+/**
+ *
+ * @param containerNodeRect 拖拽视口 rect -> 取的droppable
+ * @param targetNodeRect 拖拽目标 rect -> 把手的父元素
+ * @param transform modifier 返回的transform
+ * @returns
+ */
+export function restrictToContainerRect(
+  containerNodeRect: ClientRect | null,
+  targetNodeRect: ClientRect | null,
+  transform: Transform
+): Transform {
+  if (!containerNodeRect || !targetNodeRect) {
+    return transform
+  }
+  return restrictToBoundingRect(transform, targetNodeRect, containerNodeRect)
+}

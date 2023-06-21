@@ -55,10 +55,10 @@ export const useCardListStore = create(
         ...defaultCardItem,
         id: nanoid(),
       },
-      // {
-      //   ...defaultCardItem,
-      //   id: nanoid(),
-      // },
+      {
+        ...defaultCardItem,
+        id: nanoid(),
+      },
     ],
     add: () =>
       set((state) => {

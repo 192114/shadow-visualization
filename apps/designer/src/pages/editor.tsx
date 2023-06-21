@@ -1,26 +1,17 @@
-import { DndContext, useDroppable, type Modifier } from '@dnd-kit/core'
-
-// import { restrictToParentElement } from '@dnd-kit/modifiers'
+import { DndContext, useDroppable } from '@dnd-kit/core'
+import { restrictToFirstScrollableAncestor } from '@dnd-kit/modifiers'
 
 import DragItem from '~/components/DragItem'
-import EditorContianer from '~/components/EditorContianer'
+import EditorContainer from '~/components/EditorContainer'
 import Header from '~/components/Header'
 import RightConfig from '~/components/RightConfig'
 import { useCardListStore } from '~/store'
-
-// https://github.com/clauderic/dnd-kit/blob/master/packages/modifiers/src/restrictToParentElement.ts
-// function restrictToContainerRect({ containerNodeRect, transform }): Modifier {
-//   console.log(containerNodeRect)
-//   if (!containerNodeRect) {
-//     return transform
-//   }
-//   return
-// }
+import { restrictToContainerRect } from '~/utils'
 
 export default function Editor() {
   const { cardList, changeCoordinates } = useCardListStore()
 
-  const { setNodeRef } = useDroppable({
+  const { setNodeRef, node } = useDroppable({
     id: 'editor-drop',
   })
 
@@ -33,12 +24,20 @@ export default function Editor() {
         <div className="template-list">1</div>
         {/* middle view */}
         <div className="drag-view">
-          <EditorContianer wrapper={{ width: 1280, ratio: 9 / 16 }}>
+          <EditorContainer wrapper={{ width: 1280, ratio: 9 / 16 }}>
             <DndContext
               onDragEnd={({ delta, active }) => {
                 changeCoordinates(`${active.id}`, delta.x, delta.y)
               }}
-              // modifiers={[restrictToContainerRect]}
+              modifiers={[
+                ({ transform, containerNodeRect }) =>
+                  restrictToContainerRect(
+                    node.current?.getBoundingClientRect() ?? null,
+                    containerNodeRect,
+                    transform
+                  ),
+                restrictToFirstScrollableAncestor,
+              ]}
             >
               <div ref={setNodeRef} style={{ width: '100%', height: '100%' }}>
                 {cardList.map((cardItem) => {
@@ -56,7 +55,7 @@ export default function Editor() {
                 })}
               </div>
             </DndContext>
-          </EditorContianer>
+          </EditorContainer>
         </div>
         {/* right config */}
         <RightConfig />

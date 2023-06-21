@@ -1,1 +1,4 @@
-export { restrictToBoundingRect } from './restrictToBoundingRect'
+export {
+  restrictToBoundingRect,
+  restrictToContainerRect,
+} from './restrictToBoundingRect'
