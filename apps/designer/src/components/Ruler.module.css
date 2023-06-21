@@ -1,0 +1,27 @@
+.fill {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  top: 64px;
+  left: 200px;
+  background-color: #333333;
+  z-index: 99;
+}
+
+.vertical {
+  width: 30px;
+  top: 94px;
+  bottom: 0px;
+  left: 200px;
+  position: fixed;
+  z-index: 99;
+}
+
+.horizontal {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  height: 30px;
+  left: 230px;
+  z-index: 99;
+}

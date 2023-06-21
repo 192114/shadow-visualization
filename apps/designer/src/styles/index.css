@@ -8,7 +8,9 @@
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
+  height: 8px;
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar-track {
@@ -17,7 +19,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
   border-radius: 100px;
 }
 
@@ -70,6 +72,6 @@ body[data-dark='1'] .template-list {
 }
 
 .drag-view {
-  flex: auto;
-  overflow: auto;
+  flex: 1;
+  overflow: hidden;
 }

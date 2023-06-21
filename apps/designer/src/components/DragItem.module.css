@@ -1,12 +1,12 @@
 .container {
   position: absolute;
-  background-color: chocolate;
+  background-color: #ff6700;
 }
 
 .container.selected::before {
   position: absolute;
   background-color: #fa541c;
-  top: -10px;
+  top: 0px;
   left: 50%;
   transform: translateX(-50%);
   content: attr(data-width);
@@ -21,7 +21,7 @@
   background-color: #fa541c;
   top: 50%;
   right: 0;
-  transform: translateX(50%) translateY(-50%);
+  transform: translateY(-50%);
   content: attr(data-height);
   color: #fff;
   border-radius: 6px;

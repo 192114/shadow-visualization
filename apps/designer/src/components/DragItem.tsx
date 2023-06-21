@@ -23,9 +23,10 @@ export interface DragItemProps {
 
 export default function DragItem(props: DragItemProps) {
   const { id, top, left, width, height, selected } = props
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id,
-  })
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id,
+    })
   const resize = useCardListStore((state) => state.resize)
 
   const [isSelected, setIsSelected] = useState<boolean>(false)
