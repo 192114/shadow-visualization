@@ -7,7 +7,7 @@ import RulerComponent, { type RulerHandle } from './Ruler'
 
 interface EditorWrapperProps {
   width: number
-  ratio: number
+  height: number
 }
 
 interface EditorProps {
@@ -52,7 +52,7 @@ export default function EditorContainer(props: EditorProps) {
 
       <div
         className={styles.editor}
-        style={{ width: wrapper.width, height: wrapper.width * wrapper.ratio }}
+        style={{ width: wrapper.width, height: wrapper.height }}
       >
         {children}
 

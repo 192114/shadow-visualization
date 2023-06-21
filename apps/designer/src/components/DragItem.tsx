@@ -6,8 +6,9 @@ import { ResizableBox } from 'react-resizable'
 import 'react-resizable/css/styles.css'
 
 import { useEffect, useState } from 'react'
+import Decimal from 'decimal.js-light'
 
-import { useCardListStore } from '~/store'
+import { useCardListStore, useDragPanelStore } from '~/store'
 
 import styles from './DragItem.module.css'
 import Icons from './Icons'
@@ -23,17 +24,37 @@ export interface DragItemProps {
 
 export default function DragItem(props: DragItemProps) {
   const { id, top, left, width, height, selected } = props
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({
-      id,
-    })
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id,
+  })
   const resize = useCardListStore((state) => state.resize)
+  const { width: panelWidth, height: panelHeight } = useDragPanelStore()
 
   const [isSelected, setIsSelected] = useState<boolean>(false)
+  const [maxConstraintsState, setMaxConstraintsState] = useState<
+    [number, number] | undefined
+  >()
 
   useEffect(() => {
     setIsSelected(selected)
   }, [selected])
+
+  // TODO: 处理高度精度问题
+  useEffect(() => {
+    if (
+      panelWidth !== undefined &&
+      panelHeight !== undefined &&
+      top !== undefined &&
+      left !== undefined
+    ) {
+      const maxW = new Decimal(panelWidth).minus(left).toNumber()
+      const maxH = new Decimal(panelHeight).minus(top).toNumber()
+      console.log(maxH, panelHeight, top)
+      setMaxConstraintsState([maxW, maxH])
+    } else {
+      setMaxConstraintsState(undefined)
+    }
+  }, [panelWidth, panelHeight, top, left])
 
   return (
     <div
@@ -52,6 +73,7 @@ export default function DragItem(props: DragItemProps) {
         width={width}
         height={height}
         minConstraints={[100, 100]}
+        maxConstraints={maxConstraintsState}
         onResize={(e, { size }) => {
           e.stopPropagation()
           resize(id, size.width, size.height)

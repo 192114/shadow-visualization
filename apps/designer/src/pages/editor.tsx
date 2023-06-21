@@ -5,11 +5,12 @@ import DragItem from '~/components/DragItem'
 import EditorContainer from '~/components/EditorContainer'
 import Header from '~/components/Header'
 import RightConfig from '~/components/RightConfig'
-import { useCardListStore } from '~/store'
+import { useCardListStore, useDragPanelStore } from '~/store'
 import { restrictToContainerRect } from '~/utils'
 
 export default function Editor() {
   const { cardList, changeCoordinates } = useCardListStore()
+  const { width, height } = useDragPanelStore()
 
   const { setNodeRef, node } = useDroppable({
     id: 'editor-drop',
@@ -24,7 +25,7 @@ export default function Editor() {
         <div className="template-list">1</div>
         {/* middle view */}
         <div className="drag-view">
-          <EditorContainer wrapper={{ width: 1280, ratio: 9 / 16 }}>
+          <EditorContainer wrapper={{ width, height }}>
             <DndContext
               onDragEnd={({ delta, active }) => {
                 changeCoordinates(`${active.id}`, delta.x, delta.y)

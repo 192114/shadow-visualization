@@ -43,6 +43,9 @@ importers:
       dayjs:
         specifier: ^1.11.8
         version: 1.11.8
+      decimal.js-light:
+        specifier: ^2.5.1
+        version: 2.5.1
       immer:
         specifier: ^10.0.2
         version: 10.0.2
@@ -2004,6 +2007,10 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
+
+  /decimal.js-light@2.5.1:
+    resolution: {integrity: sha512-qIMFpTMZmny+MMIitAB6D7iVPEorVw6YQRWkvarTkT4tBeSLLiHzcwj6q0MmYSFCiVpiqPJTJEYIrpcPzVEIvg==}
+    dev: false
 
   /deep-extend@0.6.0:
     resolution: {integrity: sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==}

@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js-light'
 import { nanoid } from 'nanoid'
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
@@ -81,9 +82,24 @@ export const useCardListStore = create(
       set((state) => {
         const current = state.cardList.find((item) => item.id === id)
         if (current) {
-          current.x = current.x + x
-          current.y = current.y + y
+          current.x = new Decimal(current.x).add(x).toNumber()
+          current.y = new Decimal(current.y).add(y).toNumber()
         }
       }),
+  }))
+)
+
+// 可拖拽底板
+interface DragPanelState {
+  width: number
+  ratio: number
+  height: number
+}
+
+export const useDragPanelStore = create(
+  immer<DragPanelState>((set) => ({
+    width: 1280,
+    ratio: 9 / 16,
+    height: new Decimal(1280).times(9 / 16).toNumber(),
   }))
 )
