@@ -1,6 +1,6 @@
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
-import { InputNumber } from 'antd'
+import { InputNumber, Popover } from 'antd'
 
 import {
   useDragPanelStore,
@@ -48,6 +48,15 @@ export default function PanelTools({ scrollParent }: PanelToolsProps) {
       })
     }
   }
+
+  const content = (
+    <div>
+      <div>
+        <span>移动到左边界</span>
+        <div></div>
+      </div>
+    </div>
+  )
 
   return (
     <div style={style} className={styles.container}>
@@ -106,6 +115,12 @@ export default function PanelTools({ scrollParent }: PanelToolsProps) {
       >
         <Icons.arrowRightToLine size={18} />
       </div>
+
+      <Popover content={content} title="快捷键">
+        <div className={styles.item} title="快捷键">
+          <Icons.keyboard size={18} />
+        </div>
+      </Popover>
 
       <div
         className={styles.item}

@@ -14,7 +14,6 @@ dayjs.locale('zh-cn')
 const presetToken = {
   colorPrimary: '#722ED1',
   colorInfo: '#722ed1',
-  colorTextBase: '#000',
 }
 
 const EditorPage = lazy(() => import('~/pages/editor'))

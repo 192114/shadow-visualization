@@ -5,6 +5,7 @@ import {
   ChevronRightIcon,
   GridIcon,
   GripVerticalIcon,
+  KeyboardIcon,
   MoonIcon,
   MoveDiagonal2Icon,
   SunIcon,
@@ -20,6 +21,7 @@ const Icons = {
   grid: GridIcon,
   arrowLeftToLine: ArrowLeftToLineIcon,
   arrowRightToLine: ArrowRightToLineIcon,
+  keyboard: KeyboardIcon,
 }
 
 export default Icons
