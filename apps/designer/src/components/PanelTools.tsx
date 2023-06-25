@@ -1,6 +1,7 @@
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { InputNumber, Popover } from 'antd'
+import { useHotkeys } from 'react-hotkeys-hook'
 
 import {
   useDragPanelStore,
@@ -49,11 +50,46 @@ export default function PanelTools({ scrollParent }: PanelToolsProps) {
     }
   }
 
+  // 绑定快捷键
+  // 向右gap
+  useHotkeys(
+    'ctrl+R',
+    () => {
+      scrollHorizontalStep(gap)
+    },
+    [scrollParent]
+  )
+  // 向左gap
+  useHotkeys(
+    'ctrl+L',
+    () => {
+      scrollHorizontalStep(-gap)
+    },
+    [scrollParent]
+  )
+  // 右边界
+  useHotkeys(
+    'ctrl+shift+R',
+    () => {
+      const maxX = width - (scrollParent?.clientWidth ?? 0) + 30
+      scrollHorizontal(maxX)
+    },
+    [scrollParent]
+  )
+  // 向左gap
+  useHotkeys(
+    'ctrl+shift+L',
+    () => {
+      scrollHorizontal(0)
+    },
+    [scrollParent]
+  )
+
   const content = (
     <div>
-      <div>
+      <div className="flex items-center justify-between">
         <span>移动到左边界</span>
-        <div></div>
+        <div>11</div>
       </div>
     </div>
   )
@@ -109,7 +145,7 @@ export default function PanelTools({ scrollParent }: PanelToolsProps) {
         className={styles.item}
         title="右边界"
         onClick={() => {
-          const maxX = width - (scrollParent?.offsetWidth ?? 0)
+          const maxX = width - (scrollParent?.clientWidth ?? 0) + 30
           scrollHorizontal(maxX)
         }}
       >

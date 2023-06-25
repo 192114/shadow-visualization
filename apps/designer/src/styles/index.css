@@ -5,6 +5,7 @@
   --dark-second-bg-color: #1f1f1f;
   --light-font-color: rgba(0, 0, 0, 0.88);
   --dark-font-color: rgba(255, 255, 255, 0.85);
+  --primary-color: #722ed1;
 }
 
 ::-webkit-scrollbar {
@@ -14,12 +15,12 @@
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #dfdfdf;
+  background-color: #efefef;
   border-radius: 100px;
 }
 
 ::-webkit-scrollbar-thumb {
-  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 0 8px var(--primary-color);
   border-radius: 100px;
 }
 
@@ -74,4 +75,25 @@ body[data-dark='1'] .template-list {
 .drag-view {
   flex: 1;
   overflow: hidden;
+}
+
+/* 通用样式 */
+.flex {
+  display: flex;
+}
+
+.item-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-between {
+  justify-content: space-between;
 }

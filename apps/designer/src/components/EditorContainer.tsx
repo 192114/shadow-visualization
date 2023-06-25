@@ -1,4 +1,4 @@
-import { useEffect, useRef, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { DndContext } from '@dnd-kit/core'
 
 import {
@@ -30,6 +30,9 @@ export default function EditorContainer(props: EditorProps) {
   const leftRuler = useRef<RulerHandle | null>(null)
   const topRuler = useRef<RulerHandle | null>(null)
   const panel = useRef<HTMLDivElement | null>(null)
+  const [parentScrollDom, setParentScrollDom] = useState<HTMLDivElement | null>(
+    null
+  )
 
   const configPanelOpen = useConfigPanelStore((state) => state.open)
 
@@ -53,6 +56,10 @@ export default function EditorContainer(props: EditorProps) {
     leftRuler.current?.resize()
     topRuler.current?.resize()
   }, [configPanelOpen])
+
+  useEffect(() => {
+    setParentScrollDom(panel.current)
+  }, [])
 
   return (
     <div className={styles.container} ref={panel}>
@@ -78,7 +85,7 @@ export default function EditorContainer(props: EditorProps) {
           )}
         </div>
 
-        <PanelTools scrollParent={panel.current} />
+        <PanelTools scrollParent={parentScrollDom} />
       </DndContext>
     </div>
   )

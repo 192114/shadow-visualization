@@ -39,7 +39,6 @@ export default function DragItem(props: DragItemProps) {
     setIsSelected(selected)
   }, [selected])
 
-  // TODO: 处理高度精度问题
   useEffect(() => {
     if (
       panelWidth !== undefined &&
@@ -49,7 +48,6 @@ export default function DragItem(props: DragItemProps) {
     ) {
       const maxW = new Decimal(panelWidth).minus(left).toNumber()
       const maxH = new Decimal(panelHeight).minus(top).toNumber()
-      console.log(maxH, panelHeight, top)
       setMaxConstraintsState([maxW, maxH])
     } else {
       setMaxConstraintsState(undefined)
