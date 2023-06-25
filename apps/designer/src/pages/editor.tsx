@@ -28,7 +28,11 @@ export default function Editor() {
           <EditorContainer wrapper={{ width, height }}>
             <DndContext
               onDragEnd={({ delta, active }) => {
-                changeCoordinates(`${active.id}`, delta.x, delta.y)
+                changeCoordinates(
+                  `${active.id}`,
+                  Math.round(delta.x),
+                  Math.round(delta.y)
+                )
               }}
               modifiers={[
                 ({ transform, containerNodeRect }) =>

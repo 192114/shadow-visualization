@@ -82,7 +82,9 @@ export default function DragItem(props: DragItemProps) {
         }}
         onResizeStop={(e, { size }) => {
           e.stopPropagation()
-          resize(id, size.width, size.height)
+          const width = Math.round(size.width)
+          const height = Math.round(size.height)
+          resize(id, width, height)
           // 完成时 恢复初始值
           setIsSelected(selected)
         }}

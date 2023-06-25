@@ -1,8 +1,14 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type CSSProperties } from 'react'
+import { DndContext } from '@dnd-kit/core'
 
-import { useConfigPanelStore } from '~/store'
+import {
+  useConfigPanelStore,
+  useDragToolsStore,
+  usePanelGridStore,
+} from '~/store'
 
 import styles from './EditorContainer.module.css'
+import PanelTools from './PanelTools'
 import RulerComponent, { type RulerHandle } from './Ruler'
 
 interface EditorWrapperProps {
@@ -17,6 +23,9 @@ interface EditorProps {
 
 export default function EditorContainer(props: EditorProps) {
   const { wrapper, children } = props
+
+  const { changeCoordinates } = useDragToolsStore()
+  const { isShow, gap } = usePanelGridStore()
 
   const leftRuler = useRef<RulerHandle | null>(null)
   const topRuler = useRef<RulerHandle | null>(null)
@@ -50,14 +59,27 @@ export default function EditorContainer(props: EditorProps) {
       <RulerComponent pos="top" ref={topRuler} />
       <RulerComponent pos="left" ref={leftRuler} />
 
-      <div
-        className={styles.editor}
-        style={{ width: wrapper.width, height: wrapper.height }}
+      <DndContext
+        onDragEnd={({ delta }) => {
+          changeCoordinates(Math.round(delta.x), Math.round(delta.y))
+        }}
       >
-        {children}
+        <div
+          className={styles.editor}
+          style={{ width: wrapper.width, height: wrapper.height }}
+        >
+          {children}
 
-        <div className={styles.gridBox} />
-      </div>
+          {isShow && (
+            <div
+              className={styles.gridBox}
+              style={{ '--grid-gap': `${gap}px` } as CSSProperties}
+            />
+          )}
+        </div>
+
+        <PanelTools scrollParent={panel.current} />
+      </DndContext>
     </div>
   )
 }

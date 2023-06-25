@@ -103,3 +103,59 @@ export const useDragPanelStore = create(
     height: new Decimal(1280).times(9 / 16).toNumber(),
   }))
 )
+
+// 工具栏
+interface DragToolsState {
+  x: number
+  y: number
+  isShow: boolean
+}
+
+interface DragToolsActions {
+  changeCoordinates: (x: number, y: number) => void
+  toggleShow: () => void
+}
+
+export const useDragToolsStore = create(
+  immer<DragToolsState & DragToolsActions>((set) => ({
+    x: 400,
+    y: 700,
+    isShow: true,
+    changeCoordinates: (x, y) => {
+      return set((state) => {
+        state.x = new Decimal(state.x).add(x).toNumber()
+        state.y = new Decimal(state.y).add(y).toNumber()
+      })
+    },
+    toggleShow: () =>
+      set((state) => {
+        state.isShow = !state.isShow
+      }),
+  }))
+)
+
+// 网格配置信息
+interface PanelGridState {
+  isShow: boolean
+  gap: number
+}
+
+interface PanelGridActions {
+  toggleShow: () => void
+  changeGap: (gap: number) => void
+}
+
+export const usePanelGridStore = create(
+  immer<PanelGridState & PanelGridActions>((set) => ({
+    isShow: false,
+    gap: 50,
+    toggleShow: () =>
+      set((state) => {
+        state.isShow = !state.isShow
+      }),
+    changeGap: (gap) =>
+      set((state) => {
+        state.gap = gap
+      }),
+  }))
+)
