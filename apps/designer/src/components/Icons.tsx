@@ -8,6 +8,7 @@ import {
   KeyboardIcon,
   MoonIcon,
   MoveDiagonal2Icon,
+  SettingsIcon,
   SunIcon,
 } from 'lucide-react'
 
@@ -22,6 +23,7 @@ const Icons = {
   arrowLeftToLine: ArrowLeftToLineIcon,
   arrowRightToLine: ArrowRightToLineIcon,
   keyboard: KeyboardIcon,
+  settings: SettingsIcon,
 }
 
 export default Icons

@@ -1,6 +1,6 @@
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
-import { InputNumber, Popover } from 'antd'
+import { InputNumber, Popover, Space, Tag } from 'antd'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 import {
@@ -17,7 +17,7 @@ interface PanelToolsProps {
 }
 
 export default function PanelTools({ scrollParent }: PanelToolsProps) {
-  const { x, y } = useDragToolsStore()
+  const { x, y, isShow } = useDragToolsStore()
   const { width } = useDragPanelStore()
   const { toggleShow, gap, changeGap } = usePanelGridStore()
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -84,15 +84,43 @@ export default function PanelTools({ scrollParent }: PanelToolsProps) {
     },
     [scrollParent]
   )
+  // 显示隐藏网格
+  useHotkeys(
+    'ctrl+G',
+    () => {
+      toggleShow()
+    },
+    [scrollParent]
+  )
 
   const content = (
-    <div>
+    <Space direction="vertical" style={{ width: 200 }}>
       <div className="flex items-center justify-between">
         <span>移动到左边界</span>
-        <div>11</div>
+        <Tag>Ctrl Shift L</Tag>
       </div>
-    </div>
+      <div className="flex items-center justify-between">
+        <span>向左移动</span>
+        <Tag>Ctrl L</Tag>
+      </div>
+      <div className="flex items-center justify-between">
+        <span>显示/隐藏网格</span>
+        <Tag>Ctrl G</Tag>
+      </div>
+      <div className="flex items-center justify-between">
+        <span>向右移动</span>
+        <Tag>Ctrl R</Tag>
+      </div>
+      <div className="flex items-center justify-between">
+        <span>移动右边界</span>
+        <Tag>Ctrl Shift R</Tag>
+      </div>
+    </Space>
   )
+
+  if (!isShow) {
+    return null
+  }
 
   return (
     <div style={style} className={styles.container}>
