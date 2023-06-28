@@ -229,6 +229,15 @@ importers:
 
   packages/tsconfig: {}
 
+  packages/types:
+    devDependencies:
+      '@config/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.1.3
+        version: 5.1.3
+
   packages/ui:
     devDependencies:
       '@config/eslint-config-next':
