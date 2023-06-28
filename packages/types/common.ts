@@ -25,7 +25,7 @@ interface IBaseSchema<T> {
 }
 
 interface IInputNumberSchema<T> extends IBaseSchema<T> {
-  // type: T[keyof T] extends number ? 'inputNumber' : never
+  // type: T[keyof T] extends number ? 'inputNumber' : never // 联合类型 永远是 never
   type: 'inputNumber'
   min?: number
   max?: number
