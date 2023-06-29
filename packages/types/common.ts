@@ -1,10 +1,4 @@
-type FormItemType = 'input' | 'switch' | 'color' | 'json' | 'textarea'
-
-export interface IOptionsItem {
-  label: string
-  value: string
-}
-
+// 配置分组
 export type GroupType = 'basic' | 'style' | 'action'
 
 export enum GroupEnum {
@@ -13,8 +7,15 @@ export enum GroupEnum {
   action = '行为',
 }
 
+// 配置子项
+type FormItemType = 'input' | 'switch' | 'color' | 'json' | 'textarea'
+
+export interface IOptionsItem {
+  label: string
+  value: string
+}
+
 interface IBaseSchema<T> {
-  belong: GroupType
   name: keyof T
   label: string
   help?: string
@@ -25,7 +26,6 @@ interface IBaseSchema<T> {
 }
 
 interface IInputNumberSchema<T> extends IBaseSchema<T> {
-  // type: T[keyof T] extends number ? 'inputNumber' : never // 联合类型 永远是 never
   type: 'inputNumber'
   min?: number
   max?: number
@@ -41,4 +41,6 @@ interface ICommonSchema<T> extends IBaseSchema<T> {
   type: FormItemType
 }
 
-export type BasicSchema<T> = IInputNumberSchema<T> | ISelectRadioSchema<T> | ICommonSchema<T>
+export type BasicSchema<T> = {
+  [key in GroupType]?: (IInputNumberSchema<T> | ISelectRadioSchema<T> | ICommonSchema<T>)[]
+}

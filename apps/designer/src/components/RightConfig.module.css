@@ -10,6 +10,7 @@
   background-color: var(--light-second-bg-color);
   transition: transform 0.3s ease;
   transform: translateX(0);
+  z-index: 999;
 }
 
 .wrapper.hide {
@@ -25,6 +26,31 @@ body[data-dark='1'] .wrapper {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.tabs {
+  width: 100%;
+  display: flex;
+  position: sticky;
+  top: 0;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 16px;
+}
+
+.tabItem {
+  padding: 8px 16px 4px 16px;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+}
+
+.tabItem.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.tabPanel {
+  margin-top: 12px;
 }
 
 .switch {

@@ -16,7 +16,12 @@ export default function RightConfig() {
     <div className={styles.outer} style={{ width: outerOpen ? undefined : 0 }}>
       <div className={cn(styles.wrapper, { [styles.hide]: !open })}>
         <div className={styles.former}>
-          <div style={{ height: 3000 }}>
+          <div className={styles.tabs}>
+            <label className={styles.tabItem}>分类1</label>
+            <label className={styles.tabItem}>分类2</label>
+          </div>
+
+          <div className={styles.tabPanel}>
             <Form></Form>
           </div>
         </div>
