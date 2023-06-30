@@ -80,6 +80,9 @@ importers:
       '@config/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
+      '@schema/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@types/react':
         specifier: ^18.0.37
         version: 18.2.12

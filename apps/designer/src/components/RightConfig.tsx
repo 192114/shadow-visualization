@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import type { BasicSchema } from '@schema/types'
 import { Form } from 'antd'
 import cn from 'classnames'
 
@@ -7,7 +8,17 @@ import { useConfigPanelStore } from '~/store'
 import Icons from './Icons'
 import styles from './RightConfig.module.css'
 
-export default function RightConfig() {
+export interface RightConfigProps {
+  schema: BasicSchema
+  defaultValue: any
+  onChange: () => void
+}
+
+export default function RightConfig({
+  schema,
+  defaultValue,
+  onChange,
+}: RightConfigProps) {
   const { open, toggleOpen } = useConfigPanelStore()
 
   const [outerOpen, setOuterOpen] = useState(open)

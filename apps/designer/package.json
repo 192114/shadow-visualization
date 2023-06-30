@@ -30,6 +30,7 @@
   "devDependencies": {
     "@config/eslint-config-react": "workspace:*",
     "@config/tsconfig": "workspace:*",
+    "@schema/types": "workspace:*",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@types/react-resizable": "^3.0.4",

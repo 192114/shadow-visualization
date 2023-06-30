@@ -44,7 +44,7 @@ body[data-dark='1'] .wrapper {
   cursor: pointer;
 }
 
-.tabItem.active {
+.tabItem.active, .tabItem:hover {
   color: var(--primary-color);
   border-bottom-color: var(--primary-color);
 }

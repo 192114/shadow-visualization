@@ -7,6 +7,7 @@ import EditorContainer from '~/components/EditorContainer'
 import Header from '~/components/Header'
 import Icons from '~/components/Icons'
 import RightConfig from '~/components/RightConfig'
+import { backdropSchema } from '~/schema'
 import { useCardListStore, useDragPanelStore, useDragToolsStore } from '~/store'
 import { restrictToContainerRect } from '~/utils'
 
@@ -90,7 +91,11 @@ export default function Editor() {
           </EditorContainer>
         </div>
         {/* right config */}
-        <RightConfig />
+        <RightConfig
+          schema={backdropSchema.schema}
+          defaultValue={backdropSchema.config}
+          onChange={(value) => console.log(value)}
+        />
       </div>
     </div>
   )

@@ -32,7 +32,7 @@ interface IInputNumberSchema<T> extends IBaseSchema<T> {
   step?: number
 }
 
-interface ISelectRadioSchema<T> extends IBaseSchema<T>  {
+interface ISelectRadioSchema<T> extends IBaseSchema<T> {
   type: 'select' | 'radio'
   options: IOptionsItem[]
 }
@@ -41,6 +41,19 @@ interface ICommonSchema<T> extends IBaseSchema<T> {
   type: FormItemType
 }
 
+// 属性分组
+type WithCollapseSchema<T> = {
+  isCollapse: true
+  name: string
+  schemaList: (
+    | IInputNumberSchema<T>
+    | ISelectRadioSchema<T>
+    | ICommonSchema<T>
+  )[]
+}[]
+
 export type BasicSchema<T> = {
-  [key in GroupType]?: (IInputNumberSchema<T> | ISelectRadioSchema<T> | ICommonSchema<T>)[]
+  [key in GroupType]?:
+    | (IInputNumberSchema<T> | ISelectRadioSchema<T> | ICommonSchema<T>)[]
+    | WithCollapseSchema<T>
 }
