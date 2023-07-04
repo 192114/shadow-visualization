@@ -8,6 +8,7 @@ export interface IBackdropConfig {
 }
 
 export interface IBackdrop {
+  type: 'backdrop'
   config: IBackdropConfig
   schema: BasicSchema<IBackdropConfig>
 }

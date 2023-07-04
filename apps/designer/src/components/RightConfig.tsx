@@ -8,17 +8,7 @@ import { useConfigPanelStore } from '~/store'
 import Icons from './Icons'
 import styles from './RightConfig.module.css'
 
-export interface RightConfigProps {
-  schema: BasicSchema
-  defaultValue: any
-  onChange: () => void
-}
-
-export default function RightConfig({
-  schema,
-  defaultValue,
-  onChange,
-}: RightConfigProps) {
+export default function RightConfig() {
   const { open, toggleOpen } = useConfigPanelStore()
 
   const [outerOpen, setOuterOpen] = useState(open)

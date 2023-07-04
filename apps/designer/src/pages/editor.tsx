@@ -91,11 +91,7 @@ export default function Editor() {
           </EditorContainer>
         </div>
         {/* right config */}
-        <RightConfig
-          schema={backdropSchema.schema}
-          defaultValue={backdropSchema.config}
-          onChange={(value) => console.log(value)}
-        />
+        <RightConfig />
       </div>
     </div>
   )

@@ -3,6 +3,8 @@ import { nanoid } from 'nanoid'
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
+import type { IBackdrop } from '@schema/types'
+
 interface ThemeState {
   isDark: boolean
   toggleDark: () => void
@@ -157,5 +159,19 @@ export const usePanelGridStore = create(
       set((state) => {
         state.gap = gap
       }),
+  }))
+)
+
+// 当前配置信息
+interface CurrentSchemaState {
+  schemaConfig: IBackdrop
+}
+
+interface CurrentSchemaActions {
+
+}
+
+export const useCurrentSchema = create(
+  immer<CurrentSchemaState & CurrentSchemaActions>((set) => ({
   }))
 )

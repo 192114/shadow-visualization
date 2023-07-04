@@ -1,6 +1,7 @@
 import type { IBackdrop } from '@schema/types'
 
 export const backdropSchema: IBackdrop = {
+  type: 'backdrop',
   schema: {
     action: [
       {
