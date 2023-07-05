@@ -8,17 +8,26 @@ import Header from '~/components/Header'
 import Icons from '~/components/Icons'
 import RightConfig from '~/components/RightConfig'
 import { backdropSchema } from '~/schema'
-import { useCardListStore, useDragPanelStore, useDragToolsStore } from '~/store'
+import {
+  useCardListStore,
+  useCurrentSchema,
+  useDragPanelStore,
+  useDragToolsStore,
+} from '~/store'
 import { restrictToContainerRect } from '~/utils'
 
 export default function Editor() {
   const { cardList, changeCoordinates } = useCardListStore()
   const { width, height } = useDragPanelStore()
   const { toggleShow, isShow } = useDragToolsStore()
+  const { setAll } = useCurrentSchema()
 
   const { setNodeRef, node } = useDroppable({
     id: 'editor-drop',
   })
+
+  // 默认选中背景
+  setAll(backdropSchema)
 
   const settingsPopoverContent = (
     <Space direction="vertical" style={{ width: '100%' }}>

@@ -1,9 +1,8 @@
+import type { IBackdrop } from '@schema/types'
 import Decimal from 'decimal.js-light'
 import { nanoid } from 'nanoid'
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-
-import type { IBackdrop } from '@schema/types'
 
 interface ThemeState {
   isDark: boolean
@@ -163,15 +162,31 @@ export const usePanelGridStore = create(
 )
 
 // 当前配置信息
+type SchemaConfig = IBackdrop
+
 interface CurrentSchemaState {
-  schemaConfig: IBackdrop
+  schemaConfig: SchemaConfig | null
 }
 
-interface CurrentSchemaActions {
+type Config = SchemaConfig['config']
 
+interface CurrentSchemaActions {
+  setAll: (schemaConfig: SchemaConfig) => void
+  setConfig: (config: Config) => void
 }
 
 export const useCurrentSchema = create(
   immer<CurrentSchemaState & CurrentSchemaActions>((set) => ({
+    schemaConfig: null,
+    setConfig: (config) =>
+      set((state) => {
+        if (state.schemaConfig !== null) {
+          state.schemaConfig.config = config
+        }
+      }),
+    setAll: (schemaConfig) =>
+      set((state) => {
+        state.schemaConfig = schemaConfig
+      }),
   }))
 )

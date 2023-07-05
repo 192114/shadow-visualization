@@ -2,9 +2,9 @@
 export type GroupType = 'basic' | 'style' | 'action'
 
 export enum GroupEnum {
-  basic = '基本',
-  style = '内容',
-  action = '行为',
+  'basic' = '基本',
+  'style' = '内容',
+  'action' = '行为',
 }
 
 // 配置子项
