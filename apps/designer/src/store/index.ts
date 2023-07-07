@@ -1,4 +1,5 @@
 import type { IBackdrop } from '@schema/types'
+import type { LineSchema } from '@shared/ui'
 import Decimal from 'decimal.js-light'
 import { nanoid } from 'nanoid'
 import { create } from 'zustand'
@@ -162,7 +163,7 @@ export const usePanelGridStore = create(
 )
 
 // 当前配置信息
-type SchemaConfig = IBackdrop
+type SchemaConfig = IBackdrop | LineSchema
 
 interface CurrentSchemaState {
   schemaConfig: SchemaConfig | null

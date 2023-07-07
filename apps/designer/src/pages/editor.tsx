@@ -1,5 +1,6 @@
 import { DndContext, useDroppable } from '@dnd-kit/core'
 import { restrictToFirstScrollableAncestor } from '@dnd-kit/modifiers'
+import { lineSchema } from '@shared/ui'
 import { Button, Popover, Space, Switch } from 'antd'
 
 import DragItem from '~/components/DragItem'
@@ -59,7 +60,16 @@ export default function Editor() {
 
       <div className="main-content">
         {/* left tools */}
-        <div className="template-list">1</div>
+        <div className="template-list">
+          <Button
+            type="primary"
+            onClick={() => {
+              setAll(lineSchema)
+            }}
+          >
+            change right config
+          </Button>
+        </div>
         {/* middle view */}
         <div className="drag-view">
           <EditorContainer wrapper={{ width, height }}>

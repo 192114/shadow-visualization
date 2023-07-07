@@ -45,7 +45,7 @@ export default function RightConfig() {
   function renderFormItem(currentSchema: SchemaListItem<typeof config>) {
     const { type, name, label, help } = currentSchema
 
-    const commonFormItemProps = { label, help, name }
+    const commonFormItemProps = { label, help, name, key: name }
 
     switch (type) {
       case 'input': {

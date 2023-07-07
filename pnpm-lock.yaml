@@ -34,6 +34,9 @@ importers:
       '@scena/react-ruler':
         specifier: ^0.19.0
         version: 0.19.0
+      '@shared/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       antd:
         specifier: ^5.6.1
         version: 5.6.1(react-dom@18.2.0)(react@18.2.0)
@@ -119,9 +122,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      ui:
-        specifier: workspace:*
-        version: link:../../packages/ui
     devDependencies:
       '@config/eslint-config-next':
         specifier: workspace:*
@@ -249,6 +249,9 @@ importers:
       '@config/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
+      '@schema/types':
+        specifier: workspace:^
+        version: link:../types
       '@types/react':
         specifier: ^18.2.12
         version: 18.2.12
