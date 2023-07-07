@@ -2,7 +2,7 @@ import { BasicSchema } from './common'
 
 export interface IBackdropConfig {
   width: number
-  ratio: number
+  ratio: string
   backgroundColor: string
   pageName: string
 }

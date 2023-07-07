@@ -6,39 +6,41 @@ export const backdropSchema: IBackdrop = {
     action: [
       {
         isCollapse: true,
-        name: '类别1',
-        schemaList: [
+        children: [
           {
-            type: 'input',
-            name: 'pageName',
-            label: '名称',
-          },
-          {
-            type: 'inputNumber',
-            name: 'width',
-            label: '宽度',
+            groupName: '类别1',
+            schemaList: [
+              {
+                type: 'input',
+                name: 'pageName',
+                label: '名称',
+              },
+              {
+                type: 'inputNumber',
+                name: 'width',
+                label: '宽度',
+              },
+            ],
           },
         ],
       },
       {
         isCollapse: true,
-        name: '类别2',
-        schemaList: [
+        children: [
           {
-            type: 'select',
-            name: 'ratio',
-            label: '名称',
-            options: [
+            groupName: '类别2',
+            schemaList: [
               {
-                label: '16 / 9',
-                value: '16 / 9',
+                type: 'input',
+                name: 'pageName',
+                label: '名称',
+              },
+              {
+                type: 'inputNumber',
+                name: 'width',
+                label: '宽度',
               },
             ],
-          },
-          {
-            type: 'color',
-            name: 'backgroundColor',
-            label: '宽度',
           },
         ],
       },
@@ -49,12 +51,29 @@ export const backdropSchema: IBackdrop = {
         name: 'width',
         label: '宽度',
       },
+      {
+        type: 'radio',
+        name: 'ratio',
+        label: '比例',
+        help: '宽高比',
+        direction: 'horizontal',
+        options: [
+          {
+            label: '16:9',
+            value: '16/9',
+          },
+          {
+            label: '4:3',
+            value: '4/3',
+          },
+        ],
+      },
     ],
   },
   config: {
     width: 1000,
     pageName: 'ddd',
-    ratio: 1,
+    ratio: '16/9',
     backgroundColor: '#fff',
   },
 }

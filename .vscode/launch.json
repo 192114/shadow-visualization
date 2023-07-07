@@ -27,6 +27,13 @@
         "uriFormat": "%s",
         "action": "debugWithChrome",
       },
-    }
+    },
+    {
+      "name": "designer",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3001",
+      "runtimeArgs": ["--auto-open-devtools-for-tabs"]
+    },
   ]
 }
