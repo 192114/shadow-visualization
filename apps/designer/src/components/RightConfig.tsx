@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { GroupEnum } from '@schema/types'
 import type { SchemaListItem } from '@schema/types'
 import {
@@ -36,13 +36,17 @@ export default function RightConfig() {
     tabList[0] ?? null
   )
 
+  useEffect(() => {
+    setActiveTab(tabList[0] ?? null)
+  }, [tabList])
+
   if (schemaConfig === null) {
     return null
   }
 
-  const { config } = schemaConfig
-
-  function renderFormItem(currentSchema: SchemaListItem<typeof config>) {
+  function renderFormItem(
+    currentSchema: SchemaListItem<Record<string, unknown>>
+  ) {
     const { type, name, label, help } = currentSchema
 
     const commonFormItemProps = { label, help, name, key: name }
@@ -141,7 +145,7 @@ export default function RightConfig() {
 
           <div className={styles.tabPanel}>
             {activeTab && (
-              <Form>
+              <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
                 {schema[activeTab]?.map((item, idx) => {
                   if ('isCollapse' in item) {
                     const collapseItems = item.children.map((child) => {

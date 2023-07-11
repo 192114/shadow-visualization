@@ -21,7 +21,7 @@ export default function Editor() {
   const { cardList, changeCoordinates } = useCardListStore()
   const { width, height } = useDragPanelStore()
   const { toggleShow, isShow } = useDragToolsStore()
-  const { setAll } = useCurrentSchema()
+  const setAll = useCurrentSchema((state) => state.setAll)
 
   const { setNodeRef, node } = useDroppable({
     id: 'editor-drop',
