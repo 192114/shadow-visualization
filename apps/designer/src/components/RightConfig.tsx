@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { GroupEnum } from '@schema/types'
 import type { SchemaListItem } from '@schema/types'
+import { useDeepCompareEffect } from 'ahooks'
 import {
   Collapse,
   ColorPicker,
@@ -30,15 +31,14 @@ export default function RightConfig() {
 
   const { schema = {} } = schemaConfig ?? {}
 
-  const tabList = Object.keys(schema) as ConfigGroup[]
+  const [tabList, setTabList] = useState<ConfigGroup[]>([])
+  const [activeTab, setActiveTab] = useState<ConfigGroup | null>(null)
 
-  const [activeTab, setActiveTab] = useState<ConfigGroup | null>(
-    tabList[0] ?? null
-  )
-
-  useEffect(() => {
+  useDeepCompareEffect(() => {
+    const tabs = Object.keys(schema) as ConfigGroup[]
     setActiveTab(tabList[0] ?? null)
-  }, [tabList])
+    setTabList(tabs)
+  }, [schema])
 
   if (schemaConfig === null) {
     return null
@@ -181,9 +181,10 @@ export default function RightConfig() {
           className={styles.switch}
           onClick={() => {
             if (open) {
-              setTimeout(() => {
-                setOuterOpen(false)
-              }, 50)
+              // setTimeout(() => {
+              //   setOuterOpen(false)
+              // }, 0)
+              setOuterOpen(false)
             } else {
               setOuterOpen(true)
             }

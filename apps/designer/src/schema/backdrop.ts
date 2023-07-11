@@ -3,7 +3,7 @@ import type { IBackdrop } from '@schema/types'
 export const backdropSchema: IBackdrop = {
   type: 'backdrop',
   schema: {
-    action: [
+    container: [
       {
         isCollapse: true,
         children: [
@@ -45,7 +45,7 @@ export const backdropSchema: IBackdrop = {
         ],
       },
     ],
-    basic: [
+    content: [
       {
         type: 'inputNumber',
         name: 'width',

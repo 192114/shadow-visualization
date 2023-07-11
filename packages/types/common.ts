@@ -1,9 +1,9 @@
 // 配置分组
-export type GroupType = 'basic' | 'style' | 'action'
+export type GroupType = 'container' | 'content' | 'action'
 
 export enum GroupEnum {
-  'basic' = '基本',
-  'style' = '内容',
+  'container' = '容器',
+  'content' = '内容',
   'action' = '行为',
 }
 

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { DndContext, useDroppable } from '@dnd-kit/core'
 import { restrictToFirstScrollableAncestor } from '@dnd-kit/modifiers'
 import { lineSchema } from '@shared/ui'
@@ -28,7 +29,9 @@ export default function Editor() {
   })
 
   // 默认选中背景
-  setAll(backdropSchema)
+  useEffect(() => {
+    setAll(backdropSchema)
+  }, [setAll])
 
   const settingsPopoverContent = (
     <Space direction="vertical" style={{ width: '100%' }}>

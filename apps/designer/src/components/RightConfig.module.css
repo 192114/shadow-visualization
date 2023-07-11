@@ -1,6 +1,7 @@
 .outer {
   width: 400px;
   height: 100%;
+  transition: all 0.3s ease-out;
 }
 
 .wrapper {
@@ -8,7 +9,7 @@
   height: 100%;
   position: relative;
   background-color: var(--light-second-bg-color);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s linear;
   transform: translateX(0);
   z-index: 999;
 }

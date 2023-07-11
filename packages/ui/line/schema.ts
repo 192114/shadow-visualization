@@ -20,7 +20,7 @@ export const lineSchema: LineSchema = {
     left: 0,
   },
   schema: {
-    basic: [
+    container: [
       {
         type: 'inputNumber',
         name: 'width',
