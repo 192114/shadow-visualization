@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { GroupEnum } from '@schema/types'
 import type { SchemaListItem } from '@schema/types'
 import { useDeepCompareEffect } from 'ahooks'
@@ -126,7 +126,10 @@ export default function RightConfig() {
   }
 
   return (
-    <div className={styles.outer} style={{ width: outerOpen ? undefined : 0 }}>
+    <div
+      className={cn(styles.outer, { [styles.outerTransition]: outerOpen })}
+      style={{ width: outerOpen ? undefined : 0 }}
+    >
       <div className={cn(styles.wrapper, { [styles.hide]: !open })}>
         <div className={styles.former}>
           <div className={styles.tabs}>
@@ -181,9 +184,6 @@ export default function RightConfig() {
           className={styles.switch}
           onClick={() => {
             if (open) {
-              // setTimeout(() => {
-              //   setOuterOpen(false)
-              // }, 0)
               setOuterOpen(false)
             } else {
               setOuterOpen(true)

@@ -1,8 +1,8 @@
 import {
   ArrowLeftToLineIcon,
   ArrowRightToLineIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
+  ChevronsLeftIcon,
+  ChevronsRightIcon,
   GridIcon,
   GripVerticalIcon,
   KeyboardIcon,
@@ -15,8 +15,8 @@ import {
 const Icons = {
   sun: SunIcon,
   moon: MoonIcon,
-  leftArrow: ChevronLeftIcon,
-  rightArrow: ChevronRightIcon,
+  leftArrow: ChevronsLeftIcon,
+  rightArrow: ChevronsRightIcon,
   handle: GripVerticalIcon,
   resize: MoveDiagonal2Icon,
   grid: GridIcon,
