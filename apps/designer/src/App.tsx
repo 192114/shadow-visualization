@@ -4,7 +4,7 @@ import zhCN from 'antd/locale/zh_CN'
 import dayjs from 'dayjs'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import LoadingOrError from '~/components/LoadingOrError'
+import AppLoading from '~/components/AppLoading'
 import { useThemeStore } from '~/store'
 
 import 'dayjs/locale/zh-cn'
@@ -36,7 +36,7 @@ function App() {
       }}
     >
       <BrowserRouter>
-        <Suspense fallback={<LoadingOrError />}>
+        <Suspense fallback={<AppLoading />}>
           <Routes>
             <Route path="editor/:id" element={<EditorPage />} />
           </Routes>

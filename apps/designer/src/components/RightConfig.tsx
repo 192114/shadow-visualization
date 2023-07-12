@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { GroupEnum } from '@schema/types'
 import type { SchemaListItem } from '@schema/types'
-import { useDeepCompareEffect } from 'ahooks'
+import { useDebounceFn, useDeepCompareEffect } from 'ahooks'
 import {
   Collapse,
   ColorPicker,
@@ -23,22 +23,34 @@ import styles from './RightConfig.module.css'
 type ConfigGroup = keyof typeof GroupEnum
 
 export default function RightConfig() {
+  const [form] = Form.useForm()
   const { open, toggleOpen } = useConfigPanelStore()
 
   const [outerOpen, setOuterOpen] = useState(open)
 
-  const { schemaConfig } = useCurrentSchema()
+  const { schemaConfig, setConfig } = useCurrentSchema()
 
-  const { schema = {} } = schemaConfig ?? {}
+  const { schema = {}, config = {} } = schemaConfig ?? {}
 
   const [tabList, setTabList] = useState<ConfigGroup[]>([])
   const [activeTab, setActiveTab] = useState<ConfigGroup | null>(null)
 
   useDeepCompareEffect(() => {
     const tabs = Object.keys(schema) as ConfigGroup[]
-    setActiveTab(tabList[0] ?? null)
+    const target = tabs[0] ?? null
+    setActiveTab(target)
     setTabList(tabs)
   }, [schema])
+
+  useEffect(() => {
+    if (activeTab) {
+      form.setFieldsValue(config)
+    }
+  }, [activeTab, config, form])
+
+  const { run: setConfigDebounce } = useDebounceFn(() => {
+    setConfig({ ...config, ...form.getFieldsValue() })
+  })
 
   if (schemaConfig === null) {
     return null
@@ -107,8 +119,40 @@ export default function RightConfig() {
       }
       case 'color': {
         return (
-          <Form.Item {...commonFormItemProps}>
-            <ColorPicker />
+          <Form.Item
+            {...commonFormItemProps}
+            normalize={(value) => {
+              return value.toHexString()
+            }}
+          >
+            <ColorPicker
+              showText
+              presets={[
+                {
+                  label: '预设颜色',
+                  colors: [
+                    '#75FB6A',
+                    '#FDFC0A',
+                    '#1E90FC',
+                    '#F76BCC',
+                    '#63F8E2',
+                    '#FFA64C',
+                    '#FF2741',
+                    '#01FC99',
+                    '#BD10E0',
+                    '#FEFBCE',
+                    '#A52A2D',
+                    '#03C0FD',
+                    '#6B5BC8',
+                    '#AFEFEE',
+                    '#2D8B59',
+                    '#151b36',
+                    '#1b2342',
+                    '#00c7d9',
+                  ],
+                },
+              ]}
+            />
           </Form.Item>
         )
       }
@@ -148,7 +192,14 @@ export default function RightConfig() {
 
           <div className={styles.tabPanel}>
             {activeTab && (
-              <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
+              <Form
+                labelCol={{ span: 4 }}
+                wrapperCol={{ span: 20 }}
+                form={form}
+                onValuesChange={() => {
+                  setConfigDebounce()
+                }}
+              >
                 {schema[activeTab]?.map((item, idx) => {
                   if ('isCollapse' in item) {
                     const collapseItems = item.children.map((child) => {

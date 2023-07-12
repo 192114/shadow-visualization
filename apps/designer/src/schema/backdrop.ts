@@ -5,47 +5,10 @@ export const backdropSchema: IBackdrop = {
   schema: {
     container: [
       {
-        isCollapse: true,
-        children: [
-          {
-            groupName: '类别1',
-            schemaList: [
-              {
-                type: 'input',
-                name: 'pageName',
-                label: '名称',
-              },
-              {
-                type: 'inputNumber',
-                name: 'width',
-                label: '宽度',
-              },
-            ],
-          },
-        ],
+        type: 'input',
+        name: 'pageName',
+        label: '名称',
       },
-      {
-        isCollapse: true,
-        children: [
-          {
-            groupName: '类别2',
-            schemaList: [
-              {
-                type: 'input',
-                name: 'pageName',
-                label: '名称',
-              },
-              {
-                type: 'inputNumber',
-                name: 'width',
-                label: '宽度',
-              },
-            ],
-          },
-        ],
-      },
-    ],
-    content: [
       {
         type: 'inputNumber',
         name: 'width',
@@ -68,12 +31,17 @@ export const backdropSchema: IBackdrop = {
           },
         ],
       },
+      {
+        type: 'color',
+        name: 'backgroundColor',
+        label: '背景色',
+      },
     ],
   },
   config: {
-    width: 1000,
-    pageName: 'ddd',
+    width: 1280,
+    pageName: '页面名称',
     ratio: '16/9',
-    backgroundColor: '#fff',
+    backgroundColor: '#151b36',
   },
 }

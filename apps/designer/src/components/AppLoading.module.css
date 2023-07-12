@@ -1,0 +1,16 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--light-second-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-font-color);
+}
+
+.body[data-dark='1'] .container {
+  background-color: var(--dark-second-bg-color);
+}
