@@ -3,20 +3,20 @@ import { CSS } from '@dnd-kit/utilities'
 import { InputNumber, Popover, Space, Tag } from 'antd'
 import { useHotkeys } from 'react-hotkeys-hook'
 
+import Icons from '~/components/Icons'
 import {
   useDragPanelStore,
   useDragToolsStore,
   usePanelGridStore,
 } from '~/store'
 
-import Icons from './Icons'
 import styles from './PanelTools.module.css'
 
 interface PanelToolsProps {
   scrollParent: HTMLDivElement | null
 }
 
-export default function PanelTools({ scrollParent }: PanelToolsProps) {
+export function PanelTools({ scrollParent }: PanelToolsProps) {
   const { x, y, isShow } = useDragToolsStore()
   const { width } = useDragPanelStore()
   const { toggleShow, gap, changeGap } = usePanelGridStore()

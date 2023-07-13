@@ -6,6 +6,7 @@
   height: 120px;
   background-color: aquamarine;
   cursor: grab;
+  position: relative;
 }
 
 .item:active {

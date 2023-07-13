@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { DndContext } from '@dnd-kit/core'
 
+import PanelTools from '~/components/PanelTools'
+import RulerComponent, { type RulerHandle } from '~/components/Ruler'
 import {
   useConfigPanelStore,
   useDragToolsStore,
@@ -8,8 +10,6 @@ import {
 } from '~/store'
 
 import styles from './EditorContainer.module.css'
-import PanelTools from './PanelTools'
-import RulerComponent, { type RulerHandle } from './Ruler'
 
 interface EditorWrapperProps {
   width: number
@@ -21,7 +21,7 @@ interface EditorProps {
   wrapper: EditorWrapperProps
 }
 
-export default function EditorContainer(props: EditorProps) {
+export function EditorContainer(props: EditorProps) {
   const { wrapper, children } = props
 
   const { changeCoordinates } = useDragToolsStore()

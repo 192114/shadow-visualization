@@ -4,7 +4,7 @@ import zhCN from 'antd/locale/zh_CN'
 import dayjs from 'dayjs'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import AppLoading from '~/components/AppLoading'
+import { AppLoading } from '~/components/AppLoading'
 import { useThemeStore } from '~/store'
 
 import 'dayjs/locale/zh-cn'

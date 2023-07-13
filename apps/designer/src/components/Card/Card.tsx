@@ -8,12 +8,12 @@ import 'react-resizable/css/styles.css'
 import { useEffect, useState } from 'react'
 import Decimal from 'decimal.js-light'
 
+import Icons from '~/components/Icons'
 import { useCardListStore, useDragPanelStore } from '~/store'
 
-import styles from './DragItem.module.css'
-import Icons from './Icons'
+import styles from './Card.module.css'
 
-export interface DragItemProps {
+export interface CardProps {
   id: string
   top: number
   left: number
@@ -22,7 +22,7 @@ export interface DragItemProps {
   selected: boolean
 }
 
-export default function DragItem(props: DragItemProps) {
+export function Card(props: CardProps) {
   const { id, top, left, width, height, selected } = props
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,

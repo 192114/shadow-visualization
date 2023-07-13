@@ -1,11 +1,15 @@
 import { useEffect } from 'react'
 import { DndContext, useDroppable } from '@dnd-kit/core'
-import { restrictToFirstScrollableAncestor } from '@dnd-kit/modifiers'
+import {
+  restrictToFirstScrollableAncestor,
+  restrictToWindowEdges,
+} from '@dnd-kit/modifiers'
 // import { lineSchema } from '@shared/ui'
 import { useDeepCompareEffect } from 'ahooks'
 import { Button, Popover, Space, Switch } from 'antd'
 
-import DragItem from '~/components/DragItem'
+import Card from '~/components/Card'
+import DropArea from '~/components/DropArea'
 import EditorContainer from '~/components/EditorContainer'
 import Header from '~/components/Header'
 import Icons from '~/components/Icons'
@@ -29,9 +33,6 @@ export default function Editor() {
     id: 'editor-drop',
   })
 
-  const { setNodeRef: setAcceptNodeRef } = useDroppable({
-    id: 'accept-drop',
-  })
   // 默认选中背景
   useEffect(() => {
     setAll(backdropSchema)
@@ -71,21 +72,22 @@ export default function Editor() {
         </div>
       </Header>
       <div className="main-content">
-        {/* left tools */}
-        <div className="template-list">
-          <DndContext
-            onDragEnd={(e) => {
-              const { active, over } = e
-              console.log(over)
-              if (
-                over &&
-                over.data.current?.accepts.includes(active.data.current?.type)
-              ) {
-                // do stuff
-                console.log(e)
-              }
-            }}
-          >
+        <DndContext
+          modifiers={[restrictToWindowEdges]}
+          onDragEnd={(e) => {
+            const { active, over } = e
+            console.log(over)
+            if (
+              over &&
+              over.data.current?.accepts.includes(active.data.current?.type)
+            ) {
+              // do stuff
+              console.log(e)
+            }
+          }}
+        >
+          {/* left tools */}
+          <div className="template-list">
             {/* <Button
             type="primary"
             onClick={() => {
@@ -95,60 +97,52 @@ export default function Editor() {
             change right config
           </Button> */}
             <TemplateList />
-
-            <div
-              ref={setAcceptNodeRef}
-              style={{ width: '100%', height: 400, background: '#666' }}
-            >
-              11
-            </div>
-          </DndContext>
-        </div>
-        {/* middle view */}
-        <div className="drag-view">
-          <EditorContainer wrapper={{ width, height }}>
-            {/* <div ref={setNodeRef} style={{ width: '100%', height: '100%' }}> */}
-            <DndContext
-              onDragEnd={({ delta, active }) => {
-                changeCoordinates(
-                  `${active.id}`,
-                  Math.round(delta.x),
-                  Math.round(delta.y)
-                )
-              }}
-              modifiers={[
-                ({ transform, containerNodeRect }) =>
-                  restrictToContainerRect(
-                    node.current?.getBoundingClientRect() ?? null,
-                    containerNodeRect,
-                    transform
-                  ),
-                restrictToFirstScrollableAncestor,
-              ]}
-            >
-              <div
-                style={{ width: '100%', height: '100%', backgroundColor }}
-                ref={setNodeRef}
-              >
-                {cardList.map((cardItem) => {
-                  return (
-                    <DragItem
-                      key={cardItem.id}
-                      id={cardItem.id}
-                      top={cardItem.y}
-                      left={cardItem.x}
-                      height={cardItem.height}
-                      width={cardItem.width}
-                      selected={false}
-                    />
-                  )
-                })}
-              </div>
-            </DndContext>
-            {/* </div> */}
-          </EditorContainer>
-        </div>
-
+          </div>
+          {/* middle view */}
+          <div className="drag-view">
+            <DropArea>
+              <EditorContainer wrapper={{ width, height }}>
+                <DndContext
+                  onDragEnd={({ delta, active }) => {
+                    changeCoordinates(
+                      `${active.id}`,
+                      Math.round(delta.x),
+                      Math.round(delta.y)
+                    )
+                  }}
+                  modifiers={[
+                    ({ transform, containerNodeRect }) =>
+                      restrictToContainerRect(
+                        node.current?.getBoundingClientRect() ?? null,
+                        containerNodeRect,
+                        transform
+                      ),
+                    restrictToFirstScrollableAncestor,
+                  ]}
+                >
+                  <div
+                    style={{ width: '100%', height: '100%', backgroundColor }}
+                    ref={setNodeRef}
+                  >
+                    {cardList.map((cardItem) => {
+                      return (
+                        <Card
+                          key={cardItem.id}
+                          id={cardItem.id}
+                          top={cardItem.y}
+                          left={cardItem.x}
+                          height={cardItem.height}
+                          width={cardItem.width}
+                          selected={false}
+                        />
+                      )
+                    })}
+                  </div>
+                </DndContext>
+              </EditorContainer>
+            </DropArea>
+          </div>
+        </DndContext>
         {/* right config */}
         <RightConfig />
       </div>

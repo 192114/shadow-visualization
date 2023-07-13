@@ -15,14 +15,14 @@ import {
 } from 'antd'
 import cn from 'classnames'
 
+import Icons from '~/components/Icons'
 import { useConfigPanelStore, useCurrentSchema } from '~/store'
 
-import Icons from './Icons'
 import styles from './RightConfig.module.css'
 
 type ConfigGroup = keyof typeof GroupEnum
 
-export default function RightConfig() {
+export function RightConfig() {
   const [form] = Form.useForm()
   const { open, toggleOpen } = useConfigPanelStore()
 

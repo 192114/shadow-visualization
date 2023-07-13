@@ -10,7 +10,7 @@ export interface HeaderProps {
   children?: ReactNode
 }
 
-export default function Header({ children }: HeaderProps) {
+export function Header({ children }: HeaderProps) {
   const { isDark, toggleDark } = useThemeStore()
   return (
     <header className={styles.header}>
