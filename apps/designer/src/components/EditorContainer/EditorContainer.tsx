@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { DndContext } from '@dnd-kit/core'
 
+import DropArea from '~/components/DropArea'
 import PanelTools from '~/components/PanelTools'
 import RulerComponent, { type RulerHandle } from '~/components/Ruler'
 import {
@@ -65,28 +66,31 @@ export function EditorContainer(props: EditorProps) {
     <div className={styles.container} ref={panel}>
       <RulerComponent pos="top" ref={topRuler} />
       <RulerComponent pos="left" ref={leftRuler} />
-
-      <DndContext
-        onDragEnd={({ delta }) => {
-          changeCoordinates(Math.round(delta.x), Math.round(delta.y))
-        }}
+      {/* 左侧模版栏 拖拽的drop区域 */}
+      <DropArea
+        id="card-drop"
+        style={{ width: wrapper.width, height: wrapper.height }}
       >
-        <div
-          className={styles.editor}
-          style={{ width: wrapper.width, height: wrapper.height }}
+        {/* 用于工具栏的拖拽 */}
+        <DndContext
+          onDragEnd={({ delta }) => {
+            changeCoordinates(Math.round(delta.x), Math.round(delta.y))
+          }}
         >
-          {children}
+          <div className={styles.editor}>
+            {children}
 
-          {isShow && (
-            <div
-              className={styles.gridBox}
-              style={{ '--grid-gap': `${gap}px` } as CSSProperties}
-            />
-          )}
-        </div>
+            {isShow && (
+              <div
+                className={styles.gridBox}
+                style={{ '--grid-gap': `${gap}px` } as CSSProperties}
+              />
+            )}
+          </div>
 
-        <PanelTools scrollParent={parentScrollDom} />
-      </DndContext>
+          <PanelTools scrollParent={parentScrollDom} />
+        </DndContext>
+      </DropArea>
     </div>
   )
 }

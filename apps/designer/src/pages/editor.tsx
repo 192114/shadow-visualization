@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { DndContext, useDroppable } from '@dnd-kit/core'
+import { useEffect, useRef } from 'react'
+import { DndContext } from '@dnd-kit/core'
 import {
   restrictToFirstScrollableAncestor,
   restrictToWindowEdges,
@@ -29,9 +29,8 @@ export default function Editor() {
   const { width, height, backgroundColor, setPanelState } = useDragPanelStore()
   const { toggleShow, isShow } = useDragToolsStore()
   const { setAll, schemaConfig } = useCurrentSchema()
-  const { setNodeRef, node } = useDroppable({
-    id: 'editor-drop',
-  })
+
+  const dropAreaRef = useRef<HTMLElement | null>(null)
 
   // 默认选中背景
   useEffect(() => {
@@ -100,47 +99,48 @@ export default function Editor() {
           </div>
           {/* middle view */}
           <div className="drag-view">
-            <DropArea>
-              <EditorContainer wrapper={{ width, height }}>
-                <DndContext
-                  onDragEnd={({ delta, active }) => {
-                    changeCoordinates(
-                      `${active.id}`,
-                      Math.round(delta.x),
-                      Math.round(delta.y)
-                    )
-                  }}
-                  modifiers={[
-                    ({ transform, containerNodeRect }) =>
-                      restrictToContainerRect(
-                        node.current?.getBoundingClientRect() ?? null,
-                        containerNodeRect,
-                        transform
-                      ),
-                    restrictToFirstScrollableAncestor,
-                  ]}
+            <EditorContainer wrapper={{ width, height }}>
+              {/* 主屏幕拖拽层 */}
+              <DndContext
+                onDragEnd={({ delta, active }) => {
+                  changeCoordinates(
+                    `${active.id}`,
+                    Math.round(delta.x),
+                    Math.round(delta.y)
+                  )
+                }}
+                modifiers={[
+                  ({ transform, containerNodeRect }) =>
+                    restrictToContainerRect(
+                      dropAreaRef.current?.getBoundingClientRect() ?? null,
+                      containerNodeRect,
+                      transform
+                    ),
+                  restrictToFirstScrollableAncestor,
+                ]}
+              >
+                {/* 用于限制在drop区域拖拽 */}
+                <DropArea
+                  style={{ width: '100%', height: '100%', backgroundColor }}
+                  id="editor-drop"
+                  setRef={(nodeRef) => (dropAreaRef.current = nodeRef)}
                 >
-                  <div
-                    style={{ width: '100%', height: '100%', backgroundColor }}
-                    ref={setNodeRef}
-                  >
-                    {cardList.map((cardItem) => {
-                      return (
-                        <Card
-                          key={cardItem.id}
-                          id={cardItem.id}
-                          top={cardItem.y}
-                          left={cardItem.x}
-                          height={cardItem.height}
-                          width={cardItem.width}
-                          selected={false}
-                        />
-                      )
-                    })}
-                  </div>
-                </DndContext>
-              </EditorContainer>
-            </DropArea>
+                  {cardList.map((cardItem) => {
+                    return (
+                      <Card
+                        key={cardItem.id}
+                        id={cardItem.id}
+                        top={cardItem.y}
+                        left={cardItem.x}
+                        height={cardItem.height}
+                        width={cardItem.width}
+                        selected={false}
+                      />
+                    )
+                  })}
+                </DropArea>
+              </DndContext>
+            </EditorContainer>
           </div>
         </DndContext>
         {/* right config */}
