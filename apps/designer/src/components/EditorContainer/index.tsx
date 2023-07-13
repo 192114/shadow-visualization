@@ -1,1 +1,3 @@
-export { EditorContainer as default } from './EditorContainer'
+import { EditorContainer } from './EditorContainer'
+
+export default EditorContainer

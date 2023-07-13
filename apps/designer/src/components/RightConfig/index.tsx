@@ -1,1 +1,3 @@
-export { RightConfig as default } from './RightConfig'
+import { RightConfig } from './RightConfig'
+
+export default RightConfig

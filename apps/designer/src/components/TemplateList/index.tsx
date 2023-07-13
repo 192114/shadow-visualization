@@ -1,1 +1,3 @@
-export { TemplateList as default } from './TemplateList'
+import { TemplateList } from './TemplateList'
+
+export default TemplateList

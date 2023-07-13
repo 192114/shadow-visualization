@@ -1,1 +1,1 @@
-export * from './AppLoading'
+export { AppLoading } from './AppLoading'

@@ -1,1 +1,3 @@
-export { PanelTools as default } from './PanelTools'
+import { PanelTools } from './PanelTools'
+
+export default PanelTools
