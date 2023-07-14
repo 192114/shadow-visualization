@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js-light'
+import { nanoid } from 'nanoid'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
@@ -85,6 +86,59 @@ export const usePanelGridStore = create(
     changeGap: (gap) =>
       set((state) => {
         state.gap = gap
+      }),
+  }))
+)
+
+// 左侧模板栏 生成key
+interface TemplateKeyState {
+  wrapperKey: string
+}
+
+interface TemplateKeyActions {
+  updateWrapperKey: () => void
+}
+
+export const useTemplateKeyStore = create(
+  immer<TemplateKeyState & TemplateKeyActions>((set) => ({
+    wrapperKey: nanoid(),
+    updateWrapperKey: () =>
+      set((state) => {
+        console.log(nanoid(), 'updateWrapperKey')
+        state.wrapperKey = nanoid()
+      }),
+  }))
+)
+
+// 左侧模板栏
+interface TemplateItem {
+  type: string
+  title: string
+}
+interface TemplateListState {
+  templateList: TemplateItem[]
+}
+interface TemplateListActions {
+  setList: (templateList: TemplateItem[]) => void
+}
+
+const defaultTemplateList = [
+  {
+    type: 'line',
+    title: '折线图',
+  },
+  {
+    type: 'bar',
+    title: '柱状图',
+  },
+]
+
+export const useTemplateListStore = create(
+  immer<TemplateListState & TemplateListActions>((set) => ({
+    templateList: defaultTemplateList,
+    setList: (list) =>
+      set((state) => {
+        state.templateList = list
       }),
   }))
 )

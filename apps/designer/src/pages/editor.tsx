@@ -21,6 +21,8 @@ import {
   useCurrentSchema,
   useDragPanelStore,
   useDragToolsStore,
+  useTemplateKeyStore,
+  // useTemplateListStore,
 } from '~/store'
 import { restrictToContainerRect } from '~/utils'
 
@@ -29,6 +31,10 @@ export default function Editor() {
   const { width, height, backgroundColor, setPanelState } = useDragPanelStore()
   const { toggleShow, isShow } = useDragToolsStore()
   const { setAll, schemaConfig } = useCurrentSchema()
+  // const { templateList} = useTemplateListStore()
+  const updateWrapperKey = useTemplateKeyStore(
+    (state) => state.updateWrapperKey
+  )
 
   const dropAreaRef = useRef<HTMLElement | null>(null)
 
@@ -73,28 +79,22 @@ export default function Editor() {
       <div className="main-content">
         <DndContext
           modifiers={[restrictToWindowEdges]}
+          onDragStart={(e) => {
+            // const {active} = e
+          }}
           onDragEnd={(e) => {
             const { active, over } = e
             console.log(over)
-            if (
-              over &&
-              over.data.current?.accepts.includes(active.data.current?.type)
-            ) {
+            if (over) {
               // do stuff
               console.log(e)
+
+              updateWrapperKey()
             }
           }}
         >
-          {/* left tools */}
+          {/* left template */}
           <div className="template-list">
-            {/* <Button
-            type="primary"
-            onClick={() => {
-              setAll(lineSchema)
-            }}
-          >
-            change right config
-          </Button> */}
             <TemplateList />
           </div>
           {/* middle view */}

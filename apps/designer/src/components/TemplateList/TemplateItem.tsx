@@ -1,30 +1,40 @@
-import { DragOverlay, useDndContext, useDraggable } from '@dnd-kit/core'
-import { CSS } from '@dnd-kit/utilities'
+import { useDraggable } from '@dnd-kit/core'
+import cn from 'classnames'
 
 import styles from './TemplateList.module.css'
 
 interface Props {
   type: string
+  title: string
   dragging?: boolean
-  dragOverlay?: boolean
+  isOverlay?: boolean
 }
 
-export default function TemplateItem({ type, dragging }: Props) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+export default function TemplateItem({
+  type,
+  title,
+  dragging,
+  isOverlay,
+}: Props) {
+  const { attributes, listeners, setNodeRef } = useDraggable({
     id: type,
     data: {
       type,
+      title,
     },
   })
 
   return (
     <div
-      className={styles.item}
+      className={cn(styles.item, {
+        [styles.dragging]: dragging,
+        [styles.overlay]: isOverlay,
+      })}
       {...attributes}
       {...listeners}
       ref={setNodeRef}
     >
-      <p>template 1</p>
+      <p>{title}</p>
     </div>
   )
 }

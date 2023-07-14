@@ -1,14 +1,44 @@
 .container {
   padding: 16px 8px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  transition: background-color 0.3s;
+}
+
+.container.active {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+body[data-dark='1'] .container.active {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .item {
-  height: 120px;
+  width: 200px;
+  height: 200px;
   background-color: aquamarine;
   cursor: grab;
   position: relative;
+  margin-top: 12px;
+  transition: transform 0.5s;
 }
 
-.item:active {
+.item:first-of-type {
+  margin-top: 0px;
+}
+
+.item.dragging {
   cursor: grabbing;
+}
+
+.item.overlay {
+  transform: scale(1.05, 1.05);
+  margin-top: 0;
+  /* box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05),
+    0 1px calc(3px / var(1.05, 1)) 0 rgba(34, 33, 81, 0.15),
+    -1px 0 60px 0 rgba(34, 33, 81, 0.01),
+      0px 60px 60px 0 rgba(34, 33, 81, 0.25); */
+      box-shadow: 0px 20px 10px 0px rgba(0,0,0,0.1);
 }
