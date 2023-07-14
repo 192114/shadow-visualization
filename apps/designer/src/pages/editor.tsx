@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { DndContext } from '@dnd-kit/core'
+import { DndContext, MeasuringStrategy } from '@dnd-kit/core'
 import {
   restrictToFirstScrollableAncestor,
   restrictToWindowEdges,
@@ -78,6 +78,11 @@ export default function Editor() {
       </Header>
       <div className="main-content">
         <DndContext
+          measuring={{
+            droppable: {
+              strategy: MeasuringStrategy.Always,
+            },
+          }}
           modifiers={[restrictToWindowEdges]}
           onDragStart={(e) => {
             // const {active} = e

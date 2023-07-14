@@ -36,9 +36,5 @@ body[data-dark='1'] .container.active {
 .item.overlay {
   transform: scale(1.05, 1.05);
   margin-top: 0;
-  /* box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05),
-    0 1px calc(3px / var(1.05, 1)) 0 rgba(34, 33, 81, 0.15),
-    -1px 0 60px 0 rgba(34, 33, 81, 0.01),
-      0px 60px 60px 0 rgba(34, 33, 81, 0.25); */
-      box-shadow: 0px 20px 10px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.25);
 }

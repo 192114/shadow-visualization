@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import { useEffect } from 'react'
 import { useDroppable, type UniqueIdentifier } from '@dnd-kit/core'
+import cn from 'classnames'
 
 import styles from './DropArea.module.css'
 
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export function DropArea({ children, id, style, setRef }: Props) {
-  const { setNodeRef, node } = useDroppable({
+  const { setNodeRef, node, isOver, active } = useDroppable({
     id,
   })
 
@@ -22,8 +23,14 @@ export function DropArea({ children, id, style, setRef }: Props) {
     }
   }, [node, setRef])
 
+  const showFocus = active?.data.current?.from === 'template' && isOver
+
   return (
-    <div ref={setNodeRef} className={styles.container} style={style}>
+    <div
+      ref={setNodeRef}
+      className={cn(styles.container, { [styles.focus]: showFocus })}
+      style={style}
+    >
       {children}
     </div>
   )

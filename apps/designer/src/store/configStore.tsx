@@ -104,7 +104,6 @@ export const useTemplateKeyStore = create(
     wrapperKey: nanoid(),
     updateWrapperKey: () =>
       set((state) => {
-        console.log(nanoid(), 'updateWrapperKey')
         state.wrapperKey = nanoid()
       }),
   }))

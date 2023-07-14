@@ -26,6 +26,9 @@ export function Card(props: CardProps) {
   const { id, top, left, width, height, selected } = props
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
+    data: {
+      from: 'card',
+    },
   })
   const resize = useCardListStore((state) => state.resize)
   const { width: panelWidth, height: panelHeight } = useDragPanelStore()

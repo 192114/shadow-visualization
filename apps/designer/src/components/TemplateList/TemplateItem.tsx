@@ -21,6 +21,7 @@ export default function TemplateItem({
     data: {
       type,
       title,
+      from: 'template',
     },
   })
 
