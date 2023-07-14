@@ -116,9 +116,13 @@ interface TemplateItem {
 }
 interface TemplateListState {
   templateList: TemplateItem[]
+  currentTemplate: TemplateItem | null
+  activeType: TemplateItem['type'] | null
 }
 interface TemplateListActions {
   setList: (templateList: TemplateItem[]) => void
+  setCurrentTemplateAndType: (activeType: TemplateItem['type']) => void
+  resetCurrentTemplateAndType: () => void
 }
 
 const defaultTemplateList = [
@@ -135,9 +139,25 @@ const defaultTemplateList = [
 export const useTemplateListStore = create(
   immer<TemplateListState & TemplateListActions>((set) => ({
     templateList: defaultTemplateList,
+    currentTemplate: null,
+    activeType: null,
     setList: (list) =>
       set((state) => {
         state.templateList = list
+      }),
+
+    setCurrentTemplateAndType: (activeType) =>
+      set((state) => {
+        const template =
+          state.templateList.find((item) => item.type === activeType) ?? null
+        state.activeType = activeType
+        state.currentTemplate = template
+      }),
+
+    resetCurrentTemplateAndType: () =>
+      set((state) => {
+        state.currentTemplate = null
+        state.activeType = null
       }),
   }))
 )

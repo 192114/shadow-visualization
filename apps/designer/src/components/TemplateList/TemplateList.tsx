@@ -8,7 +8,7 @@ import TemplateItem from './TemplateItem'
 import styles from './TemplateList.module.css'
 
 export function TemplateList() {
-  const { templateList } = useTemplateListStore()
+  const { templateList, activeType } = useTemplateListStore()
   const wrapperKey = useTemplateKeyStore((state) => state.wrapperKey)
   const { active } = useDndContext()
 
@@ -19,7 +19,12 @@ export function TemplateList() {
     >
       {templateList.map((item) => {
         return (
-          <TemplateItem type={item.type} key={item.type} title={item.title} />
+          <TemplateItem
+            type={item.type}
+            key={item.type}
+            title={item.title}
+            isActive={activeType === item.type}
+          />
         )
       })}
 

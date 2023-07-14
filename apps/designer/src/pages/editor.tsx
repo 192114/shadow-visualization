@@ -22,7 +22,7 @@ import {
   useDragPanelStore,
   useDragToolsStore,
   useTemplateKeyStore,
-  // useTemplateListStore,
+  useTemplateListStore,
 } from '~/store'
 import { restrictToContainerRect } from '~/utils'
 
@@ -31,7 +31,8 @@ export default function Editor() {
   const { width, height, backgroundColor, setPanelState } = useDragPanelStore()
   const { toggleShow, isShow } = useDragToolsStore()
   const { setAll, schemaConfig } = useCurrentSchema()
-  // const { templateList} = useTemplateListStore()
+  const { setCurrentTemplateAndType, resetCurrentTemplateAndType } =
+    useTemplateListStore()
   const updateWrapperKey = useTemplateKeyStore(
     (state) => state.updateWrapperKey
   )
@@ -48,6 +49,10 @@ export default function Editor() {
       setPanelState(schemaConfig.config)
     }
   }, [schemaConfig])
+
+  function handleDragCancel() {
+    resetCurrentTemplateAndType()
+  }
 
   const settingsPopoverContent = (
     <Space direction="vertical" style={{ width: '100%' }}>
@@ -85,7 +90,8 @@ export default function Editor() {
           }}
           modifiers={[restrictToWindowEdges]}
           onDragStart={(e) => {
-            // const {active} = e
+            const { active } = e
+            setCurrentTemplateAndType(active.data.current?.type)
           }}
           onDragEnd={(e) => {
             const { active, over } = e
@@ -95,8 +101,11 @@ export default function Editor() {
               console.log(e)
 
               updateWrapperKey()
+            } else {
+              handleDragCancel()
             }
           }}
+          onDragCancel={handleDragCancel}
         >
           {/* left template */}
           <div className="template-list">

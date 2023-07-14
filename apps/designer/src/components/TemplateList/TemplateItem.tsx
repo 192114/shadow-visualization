@@ -8,6 +8,7 @@ interface Props {
   title: string
   dragging?: boolean
   isOverlay?: boolean
+  isActive?: boolean
 }
 
 export default function TemplateItem({
@@ -15,6 +16,7 @@ export default function TemplateItem({
   title,
   dragging,
   isOverlay,
+  isActive,
 }: Props) {
   const { attributes, listeners, setNodeRef } = useDraggable({
     id: type,
@@ -30,6 +32,7 @@ export default function TemplateItem({
       className={cn(styles.item, {
         [styles.dragging]: dragging,
         [styles.overlay]: isOverlay,
+        [styles.active]: isActive,
       })}
       {...attributes}
       {...listeners}

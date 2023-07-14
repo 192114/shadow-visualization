@@ -29,6 +29,10 @@ body[data-dark='1'] .container.active {
   margin-top: 0px;
 }
 
+.item.active {
+  opacity: 0.5;
+}
+
 .item.dragging {
   cursor: grabbing;
 }
