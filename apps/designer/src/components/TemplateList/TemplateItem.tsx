@@ -11,7 +11,7 @@ interface Props {
   isActive?: boolean
 }
 
-export default function TemplateItem({
+export function TemplateDraggable({
   type,
   title,
   dragging,
@@ -29,7 +29,7 @@ export default function TemplateItem({
 
   return (
     <div
-      className={cn(styles.item, {
+      className={cn(styles.dragger, {
         [styles.dragging]: dragging,
         [styles.overlay]: isOverlay,
         [styles.active]: isActive,
@@ -37,8 +37,15 @@ export default function TemplateItem({
       {...attributes}
       {...listeners}
       ref={setNodeRef}
-    >
-      <p>{title}</p>
+    ></div>
+  )
+}
+
+export default function TemplateItem({ title, ...restProps }: Props) {
+  return (
+    <div className={styles.item}>
+      <p className={styles.title}>{title}</p>
+      <TemplateDraggable {...restProps} title={title} />
     </div>
   )
 }

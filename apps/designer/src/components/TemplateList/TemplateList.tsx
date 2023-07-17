@@ -4,7 +4,7 @@ import cn from 'classnames'
 import { useTemplateKeyStore, useTemplateListStore } from '~/store'
 
 import { DraggableOverlay } from '../DraggableOverlay'
-import TemplateItem from './TemplateItem'
+import TemplateItem, { TemplateDraggable } from './TemplateItem'
 import styles from './TemplateList.module.css'
 
 export function TemplateList() {
@@ -30,7 +30,7 @@ export function TemplateList() {
 
       <DraggableOverlay>
         {active ? (
-          <TemplateItem
+          <TemplateDraggable
             dragging
             isOverlay
             type={active.data.current?.type}

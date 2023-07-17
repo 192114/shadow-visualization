@@ -1,5 +1,11 @@
 import { useEffect, useRef } from 'react'
-import { DndContext, MeasuringStrategy } from '@dnd-kit/core'
+import {
+  DndContext,
+  MeasuringStrategy,
+  rectIntersection,
+  pointerWithin,
+  type CollisionDetection,
+} from '@dnd-kit/core'
 import {
   restrictToFirstScrollableAncestor,
   restrictToWindowEdges,
@@ -27,7 +33,7 @@ import {
 import { restrictToContainerRect } from '~/utils'
 
 export default function Editor() {
-  const { cardList, changeCoordinates } = useCardListStore()
+  const { cardList, changeCoordinates, add: addCard } = useCardListStore()
   const { width, height, backgroundColor, setPanelState } = useDragPanelStore()
   const { toggleShow, isShow } = useDragToolsStore()
   const { setAll, schemaConfig } = useCurrentSchema()
@@ -49,6 +55,14 @@ export default function Editor() {
       setPanelState(schemaConfig.config)
     }
   }, [schemaConfig])
+
+  const collisionDetectionStrategy: CollisionDetection = function (args) {
+    console.log(args)
+    // const pointerIntersections = pointerWithin(args)
+    // console.log(pointerIntersections)
+
+    // return rectIntersection(args)
+  }
 
   function handleDragCancel() {
     resetCurrentTemplateAndType()
@@ -88,17 +102,45 @@ export default function Editor() {
               strategy: MeasuringStrategy.Always,
             },
           }}
+          collisionDetection={collisionDetectionStrategy}
           modifiers={[restrictToWindowEdges]}
           onDragStart={(e) => {
             const { active } = e
             setCurrentTemplateAndType(active.data.current?.type)
           }}
+          onDragOver={(e) => {
+            const { active, over } = e
+
+            // 如果拖拽到drop区域，cardlist 中添加一个新的card
+            if (over) {
+              // 添加临时块显示位置
+              console.log(active.rect.current, over.rect)
+              const { left: wrapperLeft, top: wrapperTop } = over.rect
+              const { left: targetLeft = 0, top: targetTop = 0 } =
+                active.rect.current.translated ?? {}
+
+              const tempLeft = targetLeft - wrapperLeft
+              const tempTop = targetTop - wrapperTop
+
+              const initialLeft = tempLeft > 0 ? tempLeft : 0
+              const initialTop = tempTop > 0 ? tempTop : 0
+
+              addCard('temporary-card', {
+                x: initialLeft,
+                y: initialTop,
+                width: 200,
+                height: 200,
+              })
+            } else {
+              // 移除临时的元素
+            }
+          }}
           onDragEnd={(e) => {
             const { active, over } = e
-            console.log(over)
+            // console.log(over)
             if (over) {
               // do stuff
-              console.log(e)
+              // console.log(e)
 
               updateWrapperKey()
             } else {

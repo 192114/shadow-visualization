@@ -1,15 +1,15 @@
 import { createPortal } from 'react-dom'
-import { DragOverlay } from '@dnd-kit/core'
+import { defaultDropAnimationSideEffects, DragOverlay } from '@dnd-kit/core'
 import type { DropAnimation } from '@dnd-kit/core'
 
 const dropAnimationConfig: DropAnimation = {
-  sideEffects({ active }) {
-    active.node.style.opacity = '0'
-
-    return () => {
-      active.node.style.opacity = ''
-    }
-  },
+  sideEffects: defaultDropAnimationSideEffects({
+    styles: {
+      active: {
+        opacity: '0.5',
+      },
+    },
+  }),
 }
 
 interface Props {

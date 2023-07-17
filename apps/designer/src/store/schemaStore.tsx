@@ -23,7 +23,7 @@ interface CardListState {
 }
 
 interface CardListActions {
-  add: () => void
+  add: (id?: string, initialState?: Omit<CardListItem, 'id'>) => void
   resize: (id: string, width: number, height: number) => void
   changeCoordinates: (id: string, x: number, y: number) => void
 }
@@ -37,22 +37,14 @@ const defaultCardItem = {
 
 export const useCardListStore = create(
   immer<CardListState & CardListActions>((set) => ({
-    cardList: [
-      {
-        ...defaultCardItem,
-        id: nanoid(),
-      },
-      {
-        ...defaultCardItem,
-        id: nanoid(),
-      },
-    ],
-    add: () =>
+    cardList: [],
+    add: (id, initialState) =>
       set((state) => {
-        const id = nanoid()
+        const cardId = id ?? nanoid()
+        const init = initialState ?? defaultCardItem
         state.cardList.push({
-          ...defaultCardItem,
-          id,
+          ...init,
+          id: cardId,
         })
       }),
     resize: (id: string, width: number, height: number) =>
