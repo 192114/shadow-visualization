@@ -8,11 +8,7 @@
 }
 
 .container.active {
-  background-color: rgba(255, 255, 255, 0.9);
-}
-
-body[data-dark='1'] .container.active {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--active-bg-color);
 }
 
 .item {

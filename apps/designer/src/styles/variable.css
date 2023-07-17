@@ -1,0 +1,15 @@
+:root {
+  --bg-color: #fff;
+  --second-bg-color: #f1f1f1;
+  --active-bg-color: rgba(255, 255, 255, 0.9);
+  --font-color: rgba(0, 0, 0, 0.88);
+  --primary-color: #722ed1;
+}
+
+/* 暗黑：dark */
+[data-theme='dark'] {
+  --bg-color: #141414;
+  --second-bg-color: #1f1f1f;
+  --font-color: rgba(255, 255, 255, 0.85);
+  --active-bg-color: rgba(0, 0, 0, 0.5);
+}

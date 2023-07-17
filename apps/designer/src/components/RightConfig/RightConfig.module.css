@@ -1,7 +1,7 @@
 .outer {
   width: 400px;
   height: 100%;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+  box-shadow: -10px 0px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
 .outerTransition {
@@ -14,7 +14,7 @@
   bottom: 0;
   width: 400px;
   position: fixed;
-  background-color: var(--light-second-bg-color);
+  background-color: var(--second-bg-color);
   transition: transform 0.3s linear;
   transform: translateX(0) translateZ(0);
   z-index: 999;
@@ -22,10 +22,6 @@
 
 .wrapper.hide {
   transform: translateX(100%) translateZ(0);
-}
-
-body[data-dark='1'] .wrapper {
-  background-color: var(--dark-second-bg-color);
 }
 
 .former {
@@ -51,7 +47,8 @@ body[data-dark='1'] .wrapper {
   cursor: pointer;
 }
 
-.tabItem.active, .tabItem:hover {
+.tabItem.active,
+.tabItem:hover {
   color: var(--primary-color);
   border-bottom-color: var(--primary-color);
 }
@@ -73,14 +70,10 @@ body[data-dark='1'] .wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--light-second-bg-color);
+  background-color: var(--second-bg-color);
   cursor: pointer;
 }
 
 .switch:hover {
   color: var(--primary-color);
-}
-
-body[data-dark='1'] .switch {
-  background-color: var(--dark-second-bg-color);
 }

@@ -1,18 +1,14 @@
 .container {
   width: 312px;
   height: 36px;
-  background-color: var(--light-second-bg-color);
-  color: var(--light-font-color);
+  background-color: var(--second-bg-color);
+  color: var(--font-color);
   position: fixed;
   border-radius: 6px;
   display: flex;
   align-items: center;
-  z-index: 99;
-}
-
-body[data-dark='1'] .container {
-  background-color: var(--dark-second-bg-color);
-  color: var(--dark-font-color);
+  z-index: 9999;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
 }
 
 .item {

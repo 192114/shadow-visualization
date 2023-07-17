@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     if (typeof isDark !== 'undefined') {
-      document.body.setAttribute('data-dark', isDark ? '1' : '0')
+      document.body.setAttribute('data-theme', isDark ? 'dark' : 'light')
     }
   }, [isDark])
 
