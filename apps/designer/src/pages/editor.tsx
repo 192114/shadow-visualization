@@ -2,14 +2,15 @@ import { useEffect, useRef } from 'react'
 import {
   DndContext,
   MeasuringStrategy,
-  rectIntersection,
   pointerWithin,
+  rectIntersection,
   type CollisionDetection,
 } from '@dnd-kit/core'
 import {
   restrictToFirstScrollableAncestor,
   restrictToWindowEdges,
 } from '@dnd-kit/modifiers'
+
 // import { lineSchema } from '@shared/ui'
 import { useDeepCompareEffect } from 'ahooks'
 import { Button, Popover, Space, Switch } from 'antd'
@@ -57,11 +58,45 @@ export default function Editor() {
   }, [schemaConfig])
 
   const collisionDetectionStrategy: CollisionDetection = function (args) {
-    console.log(args)
+    // console.log(args)
     // const pointerIntersections = pointerWithin(args)
     // console.log(pointerIntersections)
 
     // return rectIntersection(args)
+    // const a=  pointerWithin(args)
+    // console.log(a)
+
+    const { droppableContainers, droppableRects, pointerCoordinates, active } =
+      args
+
+    if (!pointerCoordinates) {
+      return []
+    }
+
+    const collisions: CollisionDescriptor[] = []
+
+    for (const droppableContainer of droppableContainers) {
+      const { id } = droppableContainer
+      const rect = droppableRects.get(id)
+      const targetActiveTranslated = active.rect.current.translated
+
+      if (rect && targetActiveTranslated) {
+        const { x: pointerX, y: pointerY } = pointerCoordinates
+        const { top, left, bottom, right } = rect
+        const { width, height } = targetActiveTranslated
+
+        console.log(pointerCoordinates, rect, active.rect.current)
+
+        const isInDropAreaX = pointerX >= left && pointerX <= right - width
+        const isInDropAreaY = pointerY >= top && pointerY <= bottom - height
+
+        if (isInDropAreaX && isInDropAreaY) {
+          return []
+        }
+      }
+    }
+
+    return []
   }
 
   function handleDragCancel() {
