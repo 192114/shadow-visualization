@@ -24,8 +24,11 @@ interface CardListState {
 
 interface CardListActions {
   add: (id?: string, initialState?: Omit<CardListItem, 'id'>) => void
+  remove: (id: string) => void
   resize: (id: string, width: number, height: number) => void
   changeCoordinates: (id: string, x: number, y: number) => void
+  setCoordinates: (id: string, x: number, y: number) => void
+  updateKey: (preId: string) => void
 }
 
 const defaultCardItem = {
@@ -47,6 +50,11 @@ export const useCardListStore = create(
           id: cardId,
         })
       }),
+
+    remove: (id: string) =>
+      set((state) => {
+        state.cardList = state.cardList.filter((item) => item.id !== id)
+      }),
     resize: (id: string, width: number, height: number) =>
       set((state) => {
         const current = state.cardList.find((item) => item.id === id)
@@ -62,6 +70,23 @@ export const useCardListStore = create(
         if (current) {
           current.x = new Decimal(current.x).add(x).toNumber()
           current.y = new Decimal(current.y).add(y).toNumber()
+        }
+      }),
+
+    setCoordinates: (id: string, x: number, y: number) =>
+      set((state) => {
+        const current = state.cardList.find((item) => item.id === id)
+        if (current) {
+          current.x = new Decimal(x).toNumber()
+          current.y = new Decimal(y).toNumber()
+        }
+      }),
+
+    updateKey: (preId) =>
+      set((state) => {
+        const current = state.cardList.find((item) => item.id === preId)
+        if (current) {
+          current.id = nanoid()
         }
       }),
   }))

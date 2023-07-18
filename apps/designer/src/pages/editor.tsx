@@ -1,16 +1,9 @@
 import { useEffect, useRef } from 'react'
-import {
-  DndContext,
-  MeasuringStrategy,
-  pointerWithin,
-  rectIntersection,
-  type CollisionDetection,
-} from '@dnd-kit/core'
+import { DndContext, MeasuringStrategy } from '@dnd-kit/core'
 import {
   restrictToFirstScrollableAncestor,
   restrictToWindowEdges,
 } from '@dnd-kit/modifiers'
-
 // import { lineSchema } from '@shared/ui'
 import { useDeepCompareEffect } from 'ahooks'
 import { Button, Popover, Space, Switch } from 'antd'
@@ -31,10 +24,17 @@ import {
   useTemplateKeyStore,
   useTemplateListStore,
 } from '~/store'
-import { restrictToContainerRect } from '~/utils'
+import { collisionDetectionStrategy, restrictToContainerRect } from '~/utils'
 
 export default function Editor() {
-  const { cardList, changeCoordinates, add: addCard } = useCardListStore()
+  const {
+    cardList,
+    changeCoordinates,
+    setCoordinates,
+    add: addCard,
+    remove: removeCard,
+    updateKey: updateCardKey,
+  } = useCardListStore()
   const { width, height, backgroundColor, setPanelState } = useDragPanelStore()
   const { toggleShow, isShow } = useDragToolsStore()
   const { setAll, schemaConfig } = useCurrentSchema()
@@ -56,48 +56,6 @@ export default function Editor() {
       setPanelState(schemaConfig.config)
     }
   }, [schemaConfig])
-
-  const collisionDetectionStrategy: CollisionDetection = function (args) {
-    // console.log(args)
-    // const pointerIntersections = pointerWithin(args)
-    // console.log(pointerIntersections)
-
-    // return rectIntersection(args)
-    // const a=  pointerWithin(args)
-    // console.log(a)
-
-    const { droppableContainers, droppableRects, pointerCoordinates, active } =
-      args
-
-    if (!pointerCoordinates) {
-      return []
-    }
-
-    const collisions: CollisionDescriptor[] = []
-
-    for (const droppableContainer of droppableContainers) {
-      const { id } = droppableContainer
-      const rect = droppableRects.get(id)
-      const targetActiveTranslated = active.rect.current.translated
-
-      if (rect && targetActiveTranslated) {
-        const { x: pointerX, y: pointerY } = pointerCoordinates
-        const { top, left, bottom, right } = rect
-        const { width, height } = targetActiveTranslated
-
-        console.log(pointerCoordinates, rect, active.rect.current)
-
-        const isInDropAreaX = pointerX >= left && pointerX <= right - width
-        const isInDropAreaY = pointerY >= top && pointerY <= bottom - height
-
-        if (isInDropAreaX && isInDropAreaY) {
-          return []
-        }
-      }
-    }
-
-    return []
-  }
 
   function handleDragCancel() {
     resetCurrentTemplateAndType()
@@ -149,10 +107,14 @@ export default function Editor() {
             // 如果拖拽到drop区域，cardlist 中添加一个新的card
             if (over) {
               // 添加临时块显示位置
-              console.log(active.rect.current, over.rect)
+              // console.log(active.rect.current, over.rect)
               const { left: wrapperLeft, top: wrapperTop } = over.rect
-              const { left: targetLeft = 0, top: targetTop = 0 } =
-                active.rect.current.translated ?? {}
+              const {
+                left: targetLeft = 0,
+                top: targetTop = 0,
+                width: targetWidth = 100,
+                height: targetHeight = 100,
+              } = active.rect.current.translated ?? {}
 
               const tempLeft = targetLeft - wrapperLeft
               const tempTop = targetTop - wrapperTop
@@ -163,21 +125,36 @@ export default function Editor() {
               addCard('temporary-card', {
                 x: initialLeft,
                 y: initialTop,
-                width: 200,
-                height: 200,
+                width: targetWidth,
+                height: targetHeight,
               })
             } else {
               // 移除临时的元素
+              removeCard('temporary-card')
+            }
+          }}
+          onDragMove={(e) => {
+            // console.log(e)
+            const { over, active } = e
+            if (over) {
+              const { left: targetLeft = 0, top: targetTop = 0 } =
+                active.rect.current.translated ?? {}
+              const { left: wrapperLeft, top: wrapperTop } = over.rect
+              const tempLeft = targetLeft - wrapperLeft
+              const tempTop = targetTop - wrapperTop
+
+              const initialLeft = tempLeft > 0 ? tempLeft : 0
+              const initialTop = tempTop > 0 ? tempTop : 0
+              setCoordinates('temporary-card', initialLeft, initialTop)
             }
           }}
           onDragEnd={(e) => {
-            const { active, over } = e
-            // console.log(over)
+            const { over } = e
+            // console.log(active)
             if (over) {
-              // do stuff
-              // console.log(e)
-
               updateWrapperKey()
+              updateCardKey('temporary-card')
+              handleDragCancel()
             } else {
               handleDragCancel()
             }
