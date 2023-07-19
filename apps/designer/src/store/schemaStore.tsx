@@ -16,6 +16,7 @@ interface CardListItem {
   y: number
   width: number
   height: number
+  type: 'line' | 'bar' | 'pie'
 }
 
 interface CardListState {
@@ -23,7 +24,7 @@ interface CardListState {
 }
 
 interface CardListActions {
-  add: (id?: string, initialState?: Omit<CardListItem, 'id'>) => void
+  add: (initialState: Omit<CardListItem, 'id'>, id?: string) => void
   remove: (id: string) => void
   resize: (id: string, width: number, height: number) => void
   changeCoordinates: (id: string, x: number, y: number) => void
@@ -31,22 +32,14 @@ interface CardListActions {
   updateKey: (preId: string) => void
 }
 
-const defaultCardItem = {
-  x: 0,
-  y: 0,
-  width: 200,
-  height: 200,
-}
-
 export const useCardListStore = create(
   immer<CardListState & CardListActions>((set) => ({
     cardList: [],
-    add: (id, initialState) =>
+    add: (initialState, id) =>
       set((state) => {
         const cardId = id ?? nanoid()
-        const init = initialState ?? defaultCardItem
         state.cardList.push({
-          ...init,
+          ...initialState,
           id: cardId,
         })
       }),
