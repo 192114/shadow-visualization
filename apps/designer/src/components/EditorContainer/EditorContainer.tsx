@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { DndContext } from '@dnd-kit/core'
+import { restrictToWindowEdges } from '@dnd-kit/modifiers'
+import SimpleBar from 'simplebar-react'
 
 import DropArea from '~/components/DropArea'
 import PanelTools from '~/components/PanelTools'
@@ -11,6 +13,8 @@ import {
 } from '~/store'
 
 import styles from './EditorContainer.module.css'
+
+import 'simplebar-react/dist/simplebar.min.css'
 
 interface EditorWrapperProps {
   width: number
@@ -63,19 +67,18 @@ export function EditorContainer(props: EditorProps) {
   }, [])
 
   return (
-    <div className={styles.container} ref={panel}>
+    <div className={styles.container}>
       <RulerComponent pos="top" ref={topRuler} />
       <RulerComponent pos="left" ref={leftRuler} />
       {/* 左侧模版栏 拖拽的drop区域 */}
-      <DropArea
-        id="card-drop"
-        style={{ width: wrapper.width, height: wrapper.height }}
+      <SimpleBar
+        scrollableNodeProps={{ ref: panel }}
+        autoHide={false}
+        className={styles.scroll}
       >
-        {/* 用于工具栏的拖拽 */}
-        <DndContext
-          onDragEnd={({ delta }) => {
-            changeCoordinates(Math.round(delta.x), Math.round(delta.y))
-          }}
+        <DropArea
+          id="card-drop"
+          style={{ width: wrapper.width, height: wrapper.height }}
         >
           <div className={styles.editor}>
             {children}
@@ -87,10 +90,18 @@ export function EditorContainer(props: EditorProps) {
               />
             )}
           </div>
+        </DropArea>
+      </SimpleBar>
 
-          <PanelTools scrollParent={parentScrollDom} />
-        </DndContext>
-      </DropArea>
+      {/* 拖拽工具栏 */}
+      <DndContext
+        modifiers={[restrictToWindowEdges]}
+        onDragEnd={({ delta }) => {
+          changeCoordinates(Math.round(delta.x), Math.round(delta.y))
+        }}
+      >
+        <PanelTools scrollParent={parentScrollDom} />
+      </DndContext>
     </div>
   )
 }

@@ -243,7 +243,11 @@ export function RightConfig() {
             toggleOpen()
           }}
         >
-          {open ? <Icons.rightArrow /> : <Icons.leftArrow />}
+          {open ? (
+            <Icons.rightArrow size={18} />
+          ) : (
+            <Icons.leftArrow size={18} />
+          )}
         </div>
       </div>
     </div>

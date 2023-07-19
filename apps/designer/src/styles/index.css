@@ -44,19 +44,6 @@ body {
   display: flex;
 }
 
-.template-list {
-  width: 216px;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-color: var(--second-bg-color);
-}
-
-.drag-view {
-  flex: 1;
-  overflow: hidden;
-}
-
 /* 通用样式 */
 .flex {
   display: flex;

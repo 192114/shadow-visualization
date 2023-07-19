@@ -1,5 +1,6 @@
 import { useDndContext } from '@dnd-kit/core'
 import cn from 'classnames'
+import SimpleBar from 'simplebar-react'
 
 import { useTemplateKeyStore, useTemplateListStore } from '~/store'
 
@@ -7,16 +8,20 @@ import { DraggableOverlay } from '../DraggableOverlay'
 import TemplateItem, { TemplateDraggable } from './TemplateItem'
 import styles from './TemplateList.module.css'
 
+import 'simplebar-react/dist/simplebar.min.css'
+
 export function TemplateList() {
   const { templateList, activeType } = useTemplateListStore()
   const wrapperKey = useTemplateKeyStore((state) => state.wrapperKey)
   const { active } = useDndContext()
 
   return (
-    <div
+    <SimpleBar
       className={cn(styles.container, { [styles.active]: active })}
       key={wrapperKey}
     >
+      <p className={styles.alert}>拖拽添加模板</p>
+
       {templateList.map((item) => {
         return (
           <TemplateItem
@@ -38,6 +43,6 @@ export function TemplateList() {
           />
         ) : null}
       </DraggableOverlay>
-    </div>
+    </SimpleBar>
   )
 }

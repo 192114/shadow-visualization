@@ -1,10 +1,18 @@
 import { useDraggable } from '@dnd-kit/core'
 import cn from 'classnames'
 
+import Icons from '../Icons'
 import styles from './TemplateList.module.css'
 
+const typeIconMap = {
+  line: Icons.lineChart,
+  bar: Icons.barChart,
+  pie: Icons.pieChart,
+  gantt: Icons.ganttChart,
+}
+
 interface Props {
-  type: string
+  type: keyof typeof typeIconMap
   title: string
   dragging?: boolean
   isOverlay?: boolean
@@ -27,6 +35,8 @@ export function TemplateDraggable({
     },
   })
 
+  const Component = typeIconMap[type]
+
   return (
     <div
       className={cn(styles.dragger, {
@@ -37,7 +47,9 @@ export function TemplateDraggable({
       {...attributes}
       {...listeners}
       ref={setNodeRef}
-    ></div>
+    >
+      <Component className={styles.icon} size={48} strokeWidth={1} />
+    </div>
   )
 }
 

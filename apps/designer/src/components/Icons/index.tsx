@@ -1,13 +1,17 @@
 import {
   ArrowLeftToLineIcon,
   ArrowRightToLineIcon,
+  BarChart3Icon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
+  GanttChartSquareIcon,
   GridIcon,
   GripVerticalIcon,
   KeyboardIcon,
+  LineChartIcon,
   MoonIcon,
   MoveDiagonal2Icon,
+  PieChartIcon,
   SettingsIcon,
   SunIcon,
 } from 'lucide-react'
@@ -24,6 +28,10 @@ const Icons = {
   arrowRightToLine: ArrowRightToLineIcon,
   keyboard: KeyboardIcon,
   settings: SettingsIcon,
+  lineChart: LineChartIcon,
+  pieChart: PieChartIcon,
+  barChart: BarChart3Icon,
+  ganttChart: GanttChartSquareIcon,
 }
 
 export default Icons

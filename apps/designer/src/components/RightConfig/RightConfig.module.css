@@ -60,20 +60,23 @@
 
 .switch {
   position: absolute;
-  width: 24px;
-  height: 100px;
+  width: 18px;
+  height: 92px;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
-  left: -24px;
+  left: -18px;
   top: 50%;
-  margin-top: -50px;
+  margin-top: -46px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--second-bg-color);
   cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s;
 }
 
 .switch:hover {
   color: var(--primary-color);
+  opacity: 1;
 }

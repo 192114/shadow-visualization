@@ -20,13 +20,14 @@
     "dayjs": "^1.11.8",
     "decimal.js-light": "^2.5.1",
     "immer": "^10.0.2",
-    "lucide-react": "^0.244.0",
+    "lucide-react": "^0.261.0",
     "nanoid": "^4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hotkeys-hook": "^4.4.0",
     "react-resizable": "^3.0.5",
     "react-router-dom": "^6.13.0",
+    "simplebar-react": "^3.2.4",
     "zustand": "^4.3.8"
   },
   "devDependencies": {

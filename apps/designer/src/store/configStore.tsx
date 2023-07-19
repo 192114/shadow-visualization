@@ -111,7 +111,7 @@ export const useTemplateKeyStore = create(
 
 // 左侧模板栏
 interface TemplateItem {
-  type: string
+  type: 'line' | 'bar' | 'pie' | 'gantt'
   title: string
 }
 interface TemplateListState {
@@ -125,7 +125,7 @@ interface TemplateListActions {
   resetCurrentTemplateAndType: () => void
 }
 
-const defaultTemplateList = [
+const defaultTemplateList: TemplateItem[] = [
   {
     type: 'line',
     title: '折线图',

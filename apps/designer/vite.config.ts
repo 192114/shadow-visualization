@@ -9,4 +9,9 @@ export default defineConfig({
     host: true,
     port: 3001,
   },
+  css: {
+    modules: {
+      generateScopedName: '[name]_[local]--[hash:base64:5]',
+    },
+  },
 })

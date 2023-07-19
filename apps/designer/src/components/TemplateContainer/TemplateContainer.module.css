@@ -1,0 +1,11 @@
+.left {
+  width: 216px;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--second-bg-color);
+}
+
+.editor {
+  flex: 1;
+  overflow: hidden;
+}
