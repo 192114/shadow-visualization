@@ -69,6 +69,8 @@ export function Card(props: CardProps) {
       }}
       data-width={`${width}px`}
       data-height={`${height}px`}
+      data-target="card-item"
+      id={`card-item-${id}`}
     >
       <ResizableBox
         width={width}

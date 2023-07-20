@@ -18,7 +18,7 @@ import {
   useDragPanelStore,
   useDragToolsStore,
 } from '~/store'
-import { restrictToContainerRect } from '~/utils'
+import { calcLines, restrictToContainerRect } from '~/utils'
 
 export default function Editor() {
   const { cardList, changeCoordinates } = useCardListStore()
@@ -71,6 +71,42 @@ export default function Editor() {
           <EditorContainer wrapper={{ width, height }}>
             {/* 主屏幕拖拽层 */}
             <DndContext
+              autoScroll={false}
+              onDragMove={(e) => {
+                const { delta, active } = e
+                const activeRect = cardList.find(
+                  (item) => item.id === active.id
+                )
+
+                // console.log(delta)
+
+                if (delta && activeRect) {
+                  const targetRect = {
+                    width: activeRect.width,
+                    height: activeRect.height,
+                    x: activeRect.x + Math.round(delta.x),
+                    y: activeRect.y + Math.round(delta.y),
+                    id: active.id as string,
+                  }
+
+                  // calcLines(
+                  //   targetRect,
+                  //   cardList,
+                  //   document.querySelector('#editor-drop'),
+                  //   {
+                  //     baseX: 0,
+                  //     baseY: 0,
+                  //     actionType: 'drag',
+                  //   }
+                  // )
+                  const div = document.createElement('div')
+                  div.setAttribute(
+                    'style',
+                    'position: absolute;width:1px;left:30px;top:0;background-color:#000'
+                  )
+                  document.body.appendChild(div)
+                }
+              }}
               onDragEnd={({ delta, active }) => {
                 changeCoordinates(
                   `${active.id}`,

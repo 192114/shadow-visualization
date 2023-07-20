@@ -30,6 +30,7 @@ export function DropArea({ children, id, style, setRef }: Props) {
       ref={setNodeRef}
       className={cn(styles.container, { [styles.focus]: showFocus })}
       style={style}
+      id={`${id}`}
     >
       {children}
     </div>
